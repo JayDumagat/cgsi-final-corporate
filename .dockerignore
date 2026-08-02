@@ -1,0 +1,16 @@
+.git
+.github
+.next
+dist
+node_modules
+cms/.next
+cms/node_modules
+cms/media
+.wrangler
+.sites-runtime
+outputs
+work
+*.log
+.env
+.env.*
+!.env.example
