@@ -1,0 +1,11 @@
+npm notice run caballes-go-securities@0.1.0 dev
+npm notice run next dev
+⚠ Port 3000 is in use by process 43452, using available port 3001 instead.
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          43452
+- Dir:          C:\Users\jaryl\Downloads\cgsi-corporate-v10-3f7d932
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 43452 /F to stop it.
