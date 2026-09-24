@@ -3,11 +3,11 @@ import Link from "next/link";
 
 import { CtaBand } from "@/components/sections/cta-band";
 import { ServiceCategoryTabs } from "@/components/sections/service-category-tabs";
-import { HeroCopy, HeroLine, Reveal } from "@/components/ui/motion-primitives";
+import { Reveal } from "@/components/ui/motion-primitives";
+import { CorporateHero } from "@/components/sections/corporate-hero";
 import { marketAnnouncements, marketNews } from "@/content/market-content";
 import { leadership, marketSnapshot } from "@/content/site-settings";
-import { getPublishedInsights } from "@/lib/payload/insights";
-import { getPublicSiteSettings } from "@/lib/payload/site-settings";
+import { getPublishedInsights, getPublicSiteSettings } from "@/lib/content";
 
 const quickActions = [
   {
@@ -255,45 +255,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="institutional-hero">
-        <div className="institutional-hero-media">
-          <Image
-            src="/images/editorial/pse-trading-floor.jpg"
-            alt="Philippine Stock Exchange Trading Floor"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        <div className="institutional-hero-shade" aria-hidden="true" />
-        <div className="institutional-hero-grid" aria-hidden="true" />
-        <div className="site-container institutional-hero-content">
-          <HeroCopy>
-            <HeroLine>
-              <h1>A partner beyond the trade.</h1>
-            </HeroLine>
-            <HeroLine>
-              <p className="hero-summary">
-                From daily market insight to broker-assisted trading and
-                post-trade support, CGSI works alongside clients to clarify
-                decisions, coordinate execution, and stay informed after the
-                trade.
-              </p>
-            </HeroLine>
-            <HeroLine>
-              <div className="hero-actions">
-                <Link href="/open-account" className="btn btn-primary">
-                  Open an account
-                </Link>
-                <Link href="/insights" className="btn btn-on-dark">
-                  Market insights
-                </Link>
-              </div>
-            </HeroLine>
-          </HeroCopy>
-        </div>
-      </section>
+      <CorporateHero />
 
       {/* Temporarily hidden while the homepage flow is being refined. */}
       {false && (

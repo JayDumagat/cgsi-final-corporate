@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { getPublishedInsights } from "@/lib/payload/insights";
+import { getPublishedInsights } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Market Notes",

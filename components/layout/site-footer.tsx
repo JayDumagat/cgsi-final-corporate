@@ -51,6 +51,7 @@ const footerGroups = [
     heading: "Client support",
     links: [
       ["Open an account", "/open-account"],
+      ["Account forms", "/resources"],
       ["Help center", "/help"],
       ["Contact CGSI", "/contact"],
       ["Disclosures & compliance", "/disclosures"],

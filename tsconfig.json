@@ -32,9 +32,6 @@
   ],
   "exclude": [
     "node_modules",
-    "cms",
-    "db",
-    "examples",
-    "worker"
+    "examples"
   ]
 }

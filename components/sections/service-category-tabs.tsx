@@ -98,7 +98,9 @@ export function ServiceCategoryTabs({ categories }: ServiceCategoryTabsProps) {
               tabIndex={activeIndex === index ? 0 : -1}
               type="button"
             >
+              <span className="service-tab-number" aria-hidden="true">0{index + 1}</span>
               {category.eyebrow}
+              <ArrowUpRight className="service-tab-arrow" size={18} aria-hidden="true" />
             </button>
           );
         })}

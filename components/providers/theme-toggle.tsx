@@ -1,7 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -10,16 +10,29 @@ function currentTheme(): Theme {
   return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
+function subscribeTheme(onChange: () => void) {
+  window.addEventListener("cgsi-theme-change", onChange);
+  return () => window.removeEventListener("cgsi-theme-change", onChange);
+}
+
+function serverTheme(): Theme {
+  return "light";
+}
+
 export function ThemeToggle({ compact = false }: { compact?: boolean }) {
-  const [theme, setTheme] = useState<Theme>(() => currentTheme());
+  const theme = useSyncExternalStore(subscribeTheme, currentTheme, serverTheme);
 
   function toggleTheme() {
     const theme = currentTheme();
     const nextTheme: Theme = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = nextTheme;
     document.documentElement.style.colorScheme = nextTheme;
-    window.localStorage.setItem("cgsi-theme", nextTheme);
-    setTheme(nextTheme);
+    try {
+      window.localStorage.setItem("cgsi-theme", nextTheme);
+    } catch {
+      // The switch remains usable when browser storage is unavailable.
+    }
+    window.dispatchEvent(new Event("cgsi-theme-change"));
   }
 
   const toggleLabel = theme === "dark" ? "Switch to day mode" : "Switch to night mode";

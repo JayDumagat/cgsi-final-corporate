@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Reveal } from "@/components/ui/motion-primitives";
-import { getPublishedInsights } from "@/lib/payload/insights";
+import { getPublishedInsights } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Research & Insights",

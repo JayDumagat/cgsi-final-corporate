@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getPublishedInsights } from "@/lib/payload/insights";
+import { getPublishedInsights } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Investor Guides",

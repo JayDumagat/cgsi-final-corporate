@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Sites does not provide a Cloudflare Images binding for this project.
-  // Keep the locally hosted, licensed editorial assets on their direct static
-  // URLs so they remain reliable in production.
+  output: process.env.NEXT_STANDALONE === "1" ? "standalone" : undefined,
+  // Preserve existing local image URLs; the new hero uses responsive WebP assets.
   images: {
     unoptimized: true,
   },

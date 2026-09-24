@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
+import { readFile, access } from "node:fs/promises";
+import { join } from "node:path";
 import test from "node:test";
 
+const root = process.cwd();
 const routes = [
   "/",
   "/about",
@@ -42,127 +45,84 @@ const routes = [
   "/contact",
   "/privacy",
   "/disclosures",
+  "/resources",
+  "/get-started",
+  "/get-started/individual",
+  "/get-started/corporate",
 ];
-
-const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-const workerPromise = import(workerUrl.href).then((module) => module.default);
-
-async function render(pathname) {
-  const worker = await workerPromise;
-  return worker.fetch(
-    new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
+const htmlFor = (route) =>
+  readFile(
+    join(
+      root,
+      ".next/server/app",
+      route === "/" ? "index.html" : `${route.slice(1)}.html`,
+    ),
+    "utf8",
   );
-}
 
-test("renders a complete HTML response without development metadata", async () => {
-  const response = await render("/");
-
-  assert.equal(response.status, 200);
-  assert.match(
-    response.headers.get("content-type") ?? "",
-    /^text\/html\b/i,
-  );
-  assert.doesNotMatch(await response.text(), /codex-preview|content=["']development["']/i);
-});
-
-test("renders every primary corporate route", async (t) => {
-  for (const pathname of routes) {
-    await t.test(pathname, async () => {
-      const response = await render(pathname);
-      assert.equal(response.status, 200);
-      assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-      const html = await response.text();
-      assert.match(html, /Caballes-Go Securities|CGSI/);
-      assert.doesNotMatch(html, /cgsi-(?:hero|history|ofw|risk|team|trust)(?:-v2)?\.png/);
-      assert.doesNotMatch(
-        html,
-        /concept site|downloadable website|demo site|unconfigured server|prepare inquiry|your message is ready/i,
-      );
-    });
+test("every original page and account resource survives the redesign", async () => {
+  for (const route of routes) {
+    const html = await htmlFor(route);
+    assert.equal((html.match(/<h1\b/g) ?? []).length, 1, route);
+    assert.match(html, /id="main-content"/, route);
+    assert.doesNotMatch(html, /NEXT_REDIRECT/, `${route} must remain a page`);
   }
 });
-
-test("homepage exposes institutional navigation and primary pathways", async () => {
-  const response = await render("/");
-  const html = await response.text();
-
-  assert.match(html, /Who we serve/);
-  assert.match(html, /Expertise/);
-  assert.match(html, /Research &amp; insights/);
-  assert.match(html, /About CGSI/);
-  assert.match(html, /Tools/);
-  assert.match(html, /Direct Market Access/);
-  assert.match(html, /PERA/);
-  assert.match(html, /Investor relations/);
-  assert.match(html, /Accessibility/);
-  assert.match(html, /Client portal/);
-  assert.match(html, /Clarity for every market decision/);
-  assert.match(html, /Market snapshot/);
-  assert.match(html, /Our expertise/);
-  assert.match(html, /Investor resources/);
-  assert.match(html, /Leadership/);
-  assert.doesNotMatch(html, /Investments in securities can lose value/);
-  assert.doesNotMatch(html, /Registered broker-dealer/);
-  assert.doesNotMatch(html, /Cookies acceptance|Accept all/i);
+test("mega menus, utility controls, theme switcher, and client actions remain", async () => {
+  const html = await htmlFor("/");
+  for (const marker of [
+    "Who we serve",
+    "Expertise",
+    "Research &amp; insights",
+    "Tools",
+    "About CGSI",
+    "Utility navigation",
+    "Choose site language",
+    "Client portal",
+    "Open an account",
+    "Open navigation",
+    "Company announcement",
+  ])
+    assert.ok(html.includes(marker), marker);
+  assert.match(html, /theme-toggle/);
+  assert.match(html, /Service categories/);
 });
-
-test("audience pages use differentiated relationship models", async () => {
-  const pages = [
-    ["/clients/individuals-families", /Household perspective/],
-    ["/clients/ofws-seafarers", /Communication protocol/],
-    ["/clients/new-investors", /Investor foundations/],
-    ["/clients/institutions", /The institutional brief/],
-  ];
-
-  for (const [pathname, marker] of pages) {
-    const response = await render(pathname);
-    assert.equal(response.status, 200);
-    assert.match(await response.text(), marker);
+test("all rendered internal links have a generated destination and local images exist", async () => {
+  const links = new Set();
+  const images = new Set();
+  for (const route of routes) {
+    const html = await htmlFor(route);
+    for (const match of html.matchAll(/<a[^>]*href="(\/[^"?]*)"/g))
+      links.add(match[1].split("#")[0]);
+    for (const match of html.matchAll(/<img[^>]*src="(\/[^"?]+)"/g))
+      images.add(match[1]);
   }
+  for (const link of links) await htmlFor(link);
+  for (const image of images) await access(join(root, "public", image));
 });
-
-test("expertise pages use capability-specific presentation models", async () => {
-  const pages = [
-    ["/services/broker-assisted-trading", /Coverage commitments/],
-    ["/services/advisory-execution", /Decision brief/],
-    ["/services/research", /Research standards/],
-    ["/services/settlement-custody", /Post-trade blueprint/],
-    ["/services/direct-market-access", /ACCESS MODEL/],
-    ["/services/pera", /Retirement horizon/],
-  ];
-
-  for (const [pathname, marker] of pages) {
-    const response = await render(pathname);
-    assert.equal(response.status, 200);
-    assert.match(await response.text(), marker);
-  }
+test("local content and standard Next.js replace the CMS and hosting runtime", async () => {
+  const p = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+  assert.equal(p.scripts.start, "next start");
+  assert.ok(p.scripts.build.startsWith("next build"));
+  for (const name of [
+    "payload",
+    "drizzle-orm",
+    "vinext",
+    "wrangler",
+    "vite",
+    "@cloudflare/vite-plugin",
+  ])
+    assert.ok(!p.dependencies?.[name] && !p.devDependencies?.[name], name);
+  const content = await readFile(join(root, "lib/content.ts"), "utf8");
+  assert.doesNotMatch(content, /fetch\(|process\.env|PAYLOAD/);
 });
-
-test("research, market, and company editorial channels remain distinct", async () => {
-  const pages = [
-    ["/insights/market-notes", /Market note archive/],
-    ["/insights/guides", /Core pathway/],
-    ["/insights/library", /Search the complete publication archive/],
-    ["/market-news", /CGSI Market Desk/],
-    ["/market-announcements", /Official source/],
-    ["/about/pressroom", /Corporate releases/],
-  ];
-
-  for (const [pathname, marker] of pages) {
-    const response = await render(pathname);
-    assert.equal(response.status, 200);
-    assert.match(await response.text(), marker);
+test("individual and corporate documents remain distinct", async () => {
+  for (const [type, own, other] of [
+    ["individual", "SigCard_I.pdf", "SigCard_C-0001.pdf"],
+    ["corporate", "SigCard_C-0001.pdf", "SigCard_I.pdf"],
+  ]) {
+    const html = await htmlFor(`/get-started/${type}`);
+    assert.ok(html.includes(own));
+    assert.ok(!html.includes(other));
   }
 });

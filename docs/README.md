@@ -1,5 +1,9 @@
 # CGSI project documentation
 
+Start with [September 2026 redesign](./REDESIGN-2026-09.md) and the root README.
+The app is now pure Next.js with local content. CMS references in older handoff documents
+are historical; all existing website pages and interactive features are preserved.
+
 This directory preserves the product, brand, content, UX, and engineering context for the
 Caballes-Go Securities, Inc. (CGSI) public website. Read these documents before making a
 substantial change to the homepage, navigation, service presentation, company messaging, or
@@ -37,7 +41,6 @@ These root-level documents remain authoritative for their narrower subjects:
 - [PHOTOGRAPHY-DIRECTION](../PHOTOGRAPHY-DIRECTION.md): image direction, rights, privacy, and
   commissioning guidance.
 - [IMAGE-SOURCES](../IMAGE-SOURCES.md): image source and licensing record.
-- [CMS-SETUP](../CMS-SETUP.md): Payload, PostgreSQL, environment variables, and deployment.
 
 ## Source-of-truth hierarchy
 
@@ -45,7 +48,7 @@ When documents, seeded content, or a visual request conflict, use this order:
 
 1. Current user or stakeholder instruction for the requested change.
 2. Approved legal, compliance, regulatory, and operational facts.
-3. CMS records marked published and approved.
+3. Approved company content and current official sources.
 4. Typed local content in `content/`.
 5. Current component behavior and styles.
 6. These design and handoff notes for intent and rationale.

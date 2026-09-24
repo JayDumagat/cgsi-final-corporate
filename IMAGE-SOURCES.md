@@ -1,5 +1,28 @@
 # Photography sources and license record
 
+## Current hero
+
+The current workspace selection is `public/images/ret.jpeg` (399×501), an illuminated
+high-rise tower at dusk. Its source was not provided; it is preserved as the user's selected
+asset. It is not attributed to the Pexels photographer below. A larger approved original
+would improve sharpness on desktop screens.
+
+## September 2026 alternate hero
+
+All three requested candidates were visually reviewed: Cos Walks's Pasig cityscape (20414948),
+Kimy Moto's Makati office building (19826202), and ImaHoomaan Delicano's skyline (29757796).
+The latter was selected for its subdued buildings and foreground greenery.
+
+- Photographer: ImaHoomaan Delicano.
+- Source: https://www.pexels.com/photo/skyline-of-makati-city-in-metro-manila-29757796/
+- License: https://www.pexels.com/license/
+- Proposed placement: split homepage hero; currently an unused alternate.
+- Focal point: central towers, `object-position: 56% 50%`.
+- Alt: “Makati high-rise buildings above green trees beneath a cloudy sky.”
+- Derivatives: `makati-640.webp` (640×800, 70,196 bytes) and `makati-1200.webp`
+  (1200×1500, 239,406 bytes), resized from the existing local source.
+- Original CGSI logo retained unchanged at `public/cgsi-logo.png`.
+
 All editorial photographs in `public/images/editorial/` were downloaded from Pexels. Pexels permits
 free commercial use and modification without required attribution under its license:
 

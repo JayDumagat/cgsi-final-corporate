@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { Reveal } from "@/components/ui/motion-primitives";
-import { getPublishedInsight, getPublishedInsights } from "@/lib/payload/insights";
+import { getPublishedInsight, getPublishedInsights } from "@/lib/content";
 import { insights as localInsights } from "@/content/insights";
 
 type InsightPageProps = {

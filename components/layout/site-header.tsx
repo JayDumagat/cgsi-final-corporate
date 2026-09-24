@@ -7,6 +7,7 @@ import {
   Accessibility,
   ChevronDown,
   Globe,
+  FileText,
   LifeBuoy,
   LogIn,
   Mail,
@@ -24,6 +25,7 @@ import type { PublicSiteSettings } from "@/content/site-settings";
 import { megaMenus, type MegaMenu, type NavigationLink } from "@/content/navigation";
 
 const utilityLinks = [
+  { label: "Account forms", utilityLabel: "Forms", href: "/resources", icon: FileText },
   { label: "Help center", utilityLabel: "Help", href: "/help", icon: LifeBuoy },
   { label: "Contact CGSI", utilityLabel: "Contact", href: "/contact", icon: Mail },
   { label: "Accessibility", utilityLabel: undefined, href: "/accessibility", icon: Accessibility },

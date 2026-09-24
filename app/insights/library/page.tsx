@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { InsightLibrary } from "@/components/content/insight-library";
-import { getPublishedInsights } from "@/lib/payload/insights";
+import { getPublishedInsights } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Research Library",

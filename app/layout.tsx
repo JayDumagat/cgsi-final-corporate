@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/source-serif-4";
 import "./globals.css";
+import "./editorial.css";
+import "./refinement.css";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { MotionProvider } from "@/components/providers/motion-provider";
-import { getPublicSiteSettings } from "@/lib/payload/site-settings";
+import { getPublicSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://caballes-go.com"),
@@ -83,7 +85,7 @@ export default async function RootLayout({
         </a>
         <MotionProvider>
           <SiteHeader settings={settings} />
-          <main id="main-content">{children}</main>
+          <main id="main-content" tabIndex={-1}>{children}</main>
           <SiteFooter settings={settings} />
         </MotionProvider>
         <script
