@@ -3,84 +3,54 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
-  BookOpenText,
   Building2,
-  ChartNoAxesColumnIncreasing,
+  FileText,
+  LineChart,
+  ShieldCheck,
 } from "lucide-react";
 
 import { HeroCopy, HeroLine, Reveal } from "@/components/ui/motion-primitives";
 import { getPublishedInsights } from "@/lib/content";
 import styles from "./home.module.css";
 
-const nextSteps = [
+const proof = [
   {
-    icon: BookOpenText,
-    number: "01",
-    title: "Learn the basics",
-    text: "Understand Philippine equities, risk, and the account-opening process before you invest.",
-    href: "/clients/new-investors",
-    action: "Start learning",
-  },
-  {
-    icon: ChartNoAxesColumnIncreasing,
-    number: "02",
-    title: "Follow the market",
-    text: "Read dated research, market notes, and official announcements without mixing the sources.",
-    href: "/insights",
-    action: "Explore research",
+    icon: ShieldCheck,
+    label: "Market status",
+    value: "PSE Trading Participant",
   },
   {
     icon: Building2,
-    number: "03",
-    title: "Work with CGSI",
-    text: "Explore broker-assisted execution, account support, and services for individual or institutional needs.",
-    href: "/services",
-    action: "View services",
+    label: "License",
+    value: "Broker-Dealer",
+  },
+  {
+    icon: LineChart,
+    label: "Client coverage",
+    value: "Individual & institutional",
+  },
+  {
+    icon: FileText,
+    label: "Research",
+    value: "Market publications available",
   },
 ] as const;
 
-const learningLinks = [
-  {
-    image: "/images/editorial/young-investors.jpg",
-    alt: "Young investors reviewing financial information together",
-    label: "Investor education",
-    title: "Start investing with the concepts in the right order.",
-    href: "/insights/guides",
-    action: "Browse guides",
-  },
-  {
-    image: "/images/editorial/trading-research.jpg",
-    alt: "Professional market screens displaying financial information",
-    label: "Market research",
-    title: "Read the latest market notes and company-focused research.",
-    href: "/insights/library",
-    action: "Open research library",
-  },
-  {
-    image: "/images/editorial/market-office.jpg",
-    alt: "Market information displayed in a professional office",
-    label: "Official information",
-    title: "Check market announcements and source material directly.",
-    href: "/market-announcements",
-    action: "View announcements",
-  },
-] as const;
-
-const workflow = [
+const process = [
   {
     number: "01",
-    title: "Understand the decision",
-    text: "Start with the objective, the security, and the information you need before an order is placed.",
+    title: "Research the decision",
+    text: "Use market context, issuer information, and official disclosures to frame the question first.",
   },
   {
     number: "02",
     title: "Place the instruction",
-    text: "Work with a broker when you are ready to execute, with the order and next steps made clear.",
+    text: "When you are ready, work with CGSI on the order and the execution details that matter.",
   },
   {
     number: "03",
     title: "Complete the trade",
-    text: "Settlement, records, and post-trade support remain connected to the same client relationship.",
+    text: "Settlement, records, and follow-through remain connected after the order is executed.",
   },
 ] as const;
 
@@ -96,7 +66,7 @@ function formatDate(value: string) {
 export default async function Home() {
   const insights = await getPublishedInsights();
   const featured = insights[0];
-  const secondary = insights.slice(1, 3);
+  const recent = insights.slice(1, 3);
 
   return (
     <div className={styles.page}>
@@ -106,142 +76,139 @@ export default async function Home() {
             <HeroCopy>
               <div className={styles.heroCopy}>
                 <HeroLine>
-                  <p className={styles.eyebrow}>Caballes-Go Securities, Inc.</p>
+                  <p className={styles.kicker}>Caballes-Go Securities, Inc.</p>
                 </HeroLine>
                 <HeroLine>
-                  <h1 id="home-title">A more direct way to invest in Philippine equities.</h1>
+                  <h1 id="home-title">Your access to Philippine equities.</h1>
                 </HeroLine>
                 <HeroLine>
                   <p className={styles.heroLead}>
-                    Research, broker-assisted execution, and post-trade support for individual and
-                    institutional investors.
+                    Research, execution, and account support from a Philippine broker-dealer
+                    serving individual and institutional investors.
                   </p>
                 </HeroLine>
                 <HeroLine>
                   <div className={styles.heroActions}>
-                    <Link href="/open-account" className={styles.primaryAction}>
+                    <Link href="/open-account" className={styles.primaryButton}>
                       Open an account
                       <ArrowRight size={16} aria-hidden="true" />
                     </Link>
-                    <Link href="/contact" className={styles.secondaryAction}>
-                      Talk to CGSI
+                    <Link href="/insights" className={styles.secondaryButton}>
+                      Explore research
                     </Link>
                   </div>
                 </HeroLine>
               </div>
             </HeroCopy>
 
-            <Reveal animate direction="none" className={styles.heroVisual}>
+            <Reveal animate direction="none" className={styles.heroMedia}>
               <figure>
                 <Image
-                  src="/images/editorial/makati-dusk.jpg"
-                  alt="Makati business district at dusk"
+                  src="/images/editorial/makati-skyline.jpg"
+                  alt="Makati skyline representing the Philippine business and capital market"
                   fill
                   priority
-                  sizes="(min-width: 1024px) 54vw, 100vw"
+                  sizes="(min-width: 1024px) 56vw, 100vw"
                   className="object-cover"
                 />
-                <figcaption>
-                  <span>Philippine market access</span>
-                  <span>Research · Execution · Support</span>
-                </figcaption>
               </figure>
             </Reveal>
           </div>
 
-          <div className={styles.proofBar} aria-label="CGSI profile">
-            <div>
-              <span>Market access</span>
-              <strong>PSE Trading Participant</strong>
-            </div>
-            <div>
-              <span>Client coverage</span>
-              <strong>Individual & institutional</strong>
-            </div>
-            <div>
-              <span>Research</span>
-              <strong>Market publications & insights</strong>
-            </div>
-          </div>
+          <nav className={styles.taskRail} aria-label="Popular actions">
+            <Link href="/open-account">
+              <span>Open an account</span>
+              <small>Requirements and next steps</small>
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+            <Link href="/insights">
+              <span>Read market research</span>
+              <small>Latest notes and analysis</small>
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+            <Link href="/clients/institutions">
+              <span>Institutional services</span>
+              <small>Execution and operating support</small>
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+          </nav>
         </div>
       </section>
 
-      <section className={styles.nextSection} aria-labelledby="next-title">
+      <section className={styles.trustSection} aria-labelledby="trust-title">
         <div className={styles.container}>
-          <Reveal animate className={styles.sectionIntro}>
-            <p className={styles.eyebrow}>Choose your next step</p>
-            <h2 id="next-title">What would you like to do?</h2>
-            <p>
-              Start with the task in front of you. The detailed pages are there when you need them.
-            </p>
-          </Reveal>
+          <div className={styles.trustIntro}>
+            <Reveal animate>
+              <p className={styles.kicker}>Why CGSI</p>
+              <h2 id="trust-title">A brokerage relationship built around clear decisions.</h2>
+            </Reveal>
 
-          <div className={styles.nextGrid}>
-            {nextSteps.map((item, index) => {
+            <Reveal animate delay={0.04}>
+              <p>
+                You should be able to understand what you are looking at, know who to contact,
+                and move from research to execution without unnecessary friction.
+              </p>
+            </Reveal>
+          </div>
+
+          <dl className={styles.proofGrid}>
+            {proof.map((item, index) => {
               const Icon = item.icon;
               return (
-                <Reveal animate delay={index * 0.04} key={item.href}>
-                  <Link href={item.href} className={styles.nextItem}>
-                    <div className={styles.nextTopline}>
-                      <span>{item.number}</span>
-                      <Icon size={20} aria-hidden="true" />
-                    </div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                    <strong>
-                      {item.action}
-                      <ArrowRight size={15} aria-hidden="true" />
-                    </strong>
-                  </Link>
+                <Reveal animate delay={index * 0.03} key={item.label}>
+                  <div className={styles.proofItem}>
+                    <Icon size={18} aria-hidden="true" />
+                    <dt>{item.label}</dt>
+                    <dd>{item.value}</dd>
+                  </div>
                 </Reveal>
               );
             })}
-          </div>
+          </dl>
         </div>
       </section>
 
       {featured ? (
-        <section className={styles.researchSection} aria-labelledby="research-title">
+        <section className={styles.insightSection} aria-labelledby="insight-title">
           <div className={styles.container}>
-            <div className={styles.researchGrid}>
-              <Reveal animate className={styles.researchVisual}>
+            <div className={styles.insightGrid}>
+              <Reveal animate className={styles.insightMedia}>
                 <figure>
                   <Image
                     src="/images/editorial/research-meeting.jpg"
-                    alt="Professionals discussing investment research"
+                    alt="Professionals reviewing market research together"
                     fill
-                    sizes="(min-width: 1024px) 52vw, 100vw"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     className="object-cover"
                   />
                 </figure>
               </Reveal>
 
-              <Reveal animate delay={0.05} className={styles.researchCopy}>
-                <p className={styles.eyebrow}>Research spotlight</p>
-                <h2 id="research-title">Market context before market action.</h2>
-                <p className={styles.researchLead}>
-                  Read what changed, when it changed, and the source behind it before you decide
-                  what deserves your attention.
+              <Reveal animate delay={0.05} className={styles.insightContent}>
+                <p className={styles.kickerLight}>Market intelligence</p>
+                <h2 id="insight-title">Know what changed before you decide what to do.</h2>
+                <p className={styles.insightLead}>
+                  Research is most useful when the date, source, and context are easy to see.
                 </p>
 
-                <Link href={`/insights/${featured.slug}`} className={styles.featuredStory}>
+                <Link href={`/insights/${featured.slug}`} className={styles.featuredInsight}>
                   <span>
                     {formatDate(featured.publishedAt)} · {featured.category}
                   </span>
                   <h3>{featured.title}</h3>
                   <p>{featured.excerpt}</p>
                   <strong>
-                    Read the latest insight
+                    Read the insight
                     <ArrowRight size={15} aria-hidden="true" />
                   </strong>
                 </Link>
 
-                {secondary.length ? (
-                  <div className={styles.secondaryStories} aria-label="More recent insights">
-                    {secondary.map((insight) => (
-                      <Link href={`/insights/${insight.slug}`} key={insight.slug}>
-                        <span>{formatDate(insight.publishedAt)}</span>
-                        <strong>{insight.title}</strong>
+                {recent.length ? (
+                  <div className={styles.recentList}>
+                    {recent.map((item) => (
+                      <Link href={`/insights/${item.slug}`} key={item.slug}>
+                        <span>{formatDate(item.publishedAt)}</span>
+                        <strong>{item.title}</strong>
                         <ArrowUpRight size={14} aria-hidden="true" />
                       </Link>
                     ))}
@@ -253,36 +220,36 @@ export default async function Home() {
         </section>
       ) : null}
 
-      <section className={styles.workflowSection} aria-labelledby="workflow-title">
+      <section className={styles.processSection} aria-labelledby="process-title">
         <div className={styles.container}>
-          <div className={styles.workflowHeading}>
+          <div className={styles.processHeader}>
             <Reveal animate>
-              <p className={styles.eyebrow}>Working with CGSI</p>
-              <h2 id="workflow-title">When you are ready to act, the process stays clear.</h2>
+              <p className={styles.kicker}>How CGSI works with you</p>
+              <h2 id="process-title">From instruction to settlement, one connected process.</h2>
             </Reveal>
             <Reveal animate delay={0.04}>
               <p>
-                Brokerage is more than placing an order. Research, execution, settlement, and
-                follow-through should feel like parts of the same relationship.
+                The website introduces the process. The deeper service pages provide the detail
+                when you need it.
               </p>
             </Reveal>
           </div>
 
-          <div className={styles.workflowLayout}>
-            <Reveal animate className={styles.workflowImage}>
+          <div className={styles.processLayout}>
+            <Reveal animate className={styles.processMedia}>
               <figure>
                 <Image
                   src="/images/editorial/operations-team.jpg"
                   alt="Brokerage operations professionals collaborating in an office"
                   fill
-                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  sizes="(min-width: 1024px) 46vw, 100vw"
                   className="object-cover"
                 />
               </figure>
             </Reveal>
 
-            <div className={styles.workflowList}>
-              {workflow.map((item, index) => (
+            <div className={styles.processList}>
+              {process.map((item, index) => (
                 <Reveal animate delay={index * 0.04} key={item.number}>
                   <article>
                     <span>{item.number}</span>
@@ -293,8 +260,9 @@ export default async function Home() {
                   </article>
                 </Reveal>
               ))}
-              <Link href="/services" className={styles.textLink}>
-                Explore CGSI services
+
+              <Link href="/services" className={styles.textAction}>
+                View all services
                 <ArrowRight size={15} aria-hidden="true" />
               </Link>
             </div>
@@ -302,97 +270,88 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className={styles.institutionalSection} aria-labelledby="institutional-title">
+      <section className={styles.learnSection} aria-labelledby="learn-title">
         <div className={styles.container}>
-          <div className={styles.institutionalGrid}>
-            <Reveal animate className={styles.institutionalCopy}>
-              <p className={styles.eyebrowLight}>For institutions & corporations</p>
-              <h2 id="institutional-title">Professional requirements deserve a direct route.</h2>
-              <p>
-                For institutional mandates, go straight to the conversation around execution,
-                market access, settlement, custody, and operating requirements.
-              </p>
-              <Link href="/clients/institutions" className={styles.lightAction}>
-                Institutional services
-                <ArrowRight size={15} aria-hidden="true" />
-              </Link>
-            </Reveal>
-
-            <Reveal animate delay={0.05} className={styles.institutionalImage}>
-              <figure>
-                <Image
-                  src="/images/editorial/institutional-team.jpg"
-                  alt="Institutional professionals reviewing documents together"
-                  fill
-                  sizes="(min-width: 1024px) 48vw, 100vw"
-                  className="object-cover"
-                />
-              </figure>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.learningSection} aria-labelledby="learning-title">
-        <div className={styles.container}>
-          <div className={styles.learningHeading}>
+          <div className={styles.learnHeader}>
             <Reveal animate>
-              <p className={styles.eyebrow}>Learn & stay informed</p>
-              <h2 id="learning-title">Useful information, separated by purpose.</h2>
+              <p className={styles.kicker}>Helpful resources</p>
+              <h2 id="learn-title">Learn first. Verify the source. Then act.</h2>
             </Reveal>
             <Reveal animate delay={0.04}>
               <p>
-                Education explains. Research interprets. Official announcements provide the source.
-                Keeping them distinct makes the site easier to trust and use.
+                Education, research, and official announcements serve different purposes. CGSI
+                keeps them separate so you can scan the site with confidence.
               </p>
             </Reveal>
           </div>
 
-          <div className={styles.learningGrid}>
-            {learningLinks.map((item, index) => (
-              <Reveal animate delay={index * 0.04} key={item.href}>
-                <Link href={item.href} className={styles.learningItem}>
-                  <figure>
-                    <Image
-                      src={item.image}
-                      alt={item.alt}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, 100vw"
-                      className="object-cover"
-                    />
-                  </figure>
-                  <div>
-                    <span>{item.label}</span>
-                    <h3>{item.title}</h3>
-                    <strong>
-                      {item.action}
-                      <ArrowUpRight size={14} aria-hidden="true" />
-                    </strong>
-                  </div>
+          <div className={styles.learnGrid}>
+            <Reveal animate className={styles.learnFeature}>
+              <Link href="/insights/guides">
+                <figure>
+                  <Image
+                    src="/images/editorial/young-investors.jpg"
+                    alt="Young investors reviewing financial information together"
+                    fill
+                    sizes="(min-width: 900px) 58vw, 100vw"
+                    className="object-cover"
+                  />
+                </figure>
+                <div>
+                  <span>Investor education</span>
+                  <h3>Start with the fundamentals of Philippine equities.</h3>
+                  <strong>
+                    Browse investor guides
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                  </strong>
+                </div>
+              </Link>
+            </Reveal>
+
+            <div className={styles.learnList}>
+              <Reveal animate delay={0.04}>
+                <Link href="/insights/library">
+                  <span>Research library</span>
+                  <strong>Browse dated market notes and publications.</strong>
+                  <ArrowUpRight size={14} aria-hidden="true" />
                 </Link>
               </Reveal>
-            ))}
+              <Reveal animate delay={0.07}>
+                <Link href="/market-announcements">
+                  <span>Official information</span>
+                  <strong>Go directly to market announcements and notices.</strong>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+              </Reveal>
+              <Reveal animate delay={0.1}>
+                <Link href="/resources">
+                  <span>Client resources</span>
+                  <strong>Find account forms and practical support materials.</strong>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className={styles.finalSection} aria-labelledby="final-title">
+      <section className={styles.closeSection} aria-labelledby="close-title">
         <div className={styles.container}>
-          <div className={styles.finalGrid}>
+          <div className={styles.closeGrid}>
             <Reveal animate>
-              <p className={styles.eyebrow}>Open an account</p>
-              <h2 id="final-title">Ready to take the next step?</h2>
+              <p className={styles.kicker}>Start with CGSI</p>
+              <h2 id="close-title">Ready to open an account?</h2>
               <p>
-                Review the requirements first. If you are unsure which account path applies, speak
-                with CGSI before you prepare your documents.
+                Review the requirements first. If you are unsure which path applies, contact the
+                team before preparing your documents.
               </p>
             </Reveal>
-            <Reveal animate delay={0.04} className={styles.finalActions}>
-              <Link href="/open-account" className={styles.primaryAction}>
+            <Reveal animate delay={0.04} className={styles.closeActions}>
+              <Link href="/open-account" className={styles.primaryButton}>
                 View account requirements
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
-              <Link href="/contact" className={styles.secondaryAction}>
+              <Link href="/contact" className={styles.secondaryButton}>
                 Contact CGSI
               </Link>
             </Reveal>
