@@ -65,29 +65,13 @@ const organizationSchema = {
   },
 };
 
-const themeBootstrap = `
-  (() => {
-    try {
-      const saved = localStorage.getItem("cgsi-theme");
-      const theme = saved === "dark" || saved === "light"
-        ? saved
-        : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-    } catch (_) {}
-  })();
-`;
-
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const settings = await getPublicSiteSettings();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
-      </head>
+    <html lang="en">
       <body>
         <a href="#main-content" className="skip-link">
           Skip to main content
