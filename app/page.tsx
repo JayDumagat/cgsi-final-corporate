@@ -1,12 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BookOpen,
-  Building2,
-  ChartNoAxesColumnIncreasing,
-  CircleHelp,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { CorporateHero } from "@/components/sections/corporate-hero";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -15,45 +9,18 @@ import { getPublishedInsights } from "@/lib/content";
 const services = [
   {
     title: "Trading & execution",
-    text: "Broker-assisted execution and market access with a clear human point of contact.",
+    text: "Broker-assisted execution and market access with a direct point of contact.",
     href: "/services/broker-assisted-trading",
   },
   {
     title: "Research & intelligence",
-    text: "Market notes, company disclosures, and investor context organized for better decisions.",
+    text: "Market context, issuer information, and decision-focused research.",
     href: "/services/research",
   },
   {
     title: "Settlement & custody",
-    text: "Post-trade coordination, records, and account administration with defined ownership.",
+    text: "Post-trade coordination, records, and account administration.",
     href: "/services/settlement-custody",
-  },
-] as const;
-
-const pathways = [
-  {
-    icon: BookOpen,
-    title: "New to investing",
-    text: "Start with clear explanations of equities, risk, accounts, and how the market works.",
-    href: "/clients/new-investors",
-  },
-  {
-    icon: ChartNoAxesColumnIncreasing,
-    title: "Experienced investors",
-    text: "Go directly to research, execution services, tools, and market information.",
-    href: "/insights",
-  },
-  {
-    icon: Building2,
-    title: "Institutions & corporations",
-    text: "Explore professional market access, execution, custody, and mandate support.",
-    href: "/clients/institutions",
-  },
-  {
-    icon: CircleHelp,
-    title: "Existing clients",
-    text: "Find forms, account resources, help, and service channels quickly.",
-    href: "/resources",
   },
 ] as const;
 
@@ -69,47 +36,31 @@ function formatDate(value: string) {
 export default async function Home() {
   const insights = await getPublishedInsights();
   const featured = insights[0];
-  const secondary = insights.slice(1, 3);
+  const latest = insights.slice(1, 3);
 
   return (
     <>
       <CorporateHero />
 
-      <section className="airy-intro" aria-labelledby="airy-intro-title">
-        <div className="site-container airy-intro-grid">
-          <div>
-            <p className="airy-eyebrow">A traditional broker, moving forward</p>
-            <h2 id="airy-intro-title">Professional where it matters. Approachable where it helps.</h2>
-          </div>
-          <div className="airy-intro-copy">
-            <p>
-              CGSI combines the discipline expected from a broker-dealer with a more useful digital
-              experience: clear explanations, accessible research, practical resources, and direct
-              routes to the people and services clients need.
-            </p>
-            <Link href="/about">
-              Learn about CGSI
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="airy-services" aria-labelledby="airy-services-title">
+      <section className="airy-services" aria-labelledby="services-title">
         <div className="site-container airy-services-grid">
           <div className="airy-services-heading">
             <p className="airy-eyebrow">What we do</p>
-            <h2 id="airy-services-title">Market access supported by research and accountable service.</h2>
+            <h2 id="services-title">One brokerage relationship, from research to settlement.</h2>
+            <p>
+              Choose the level of support you need. The detail is available when you want it,
+              without putting every service in your way at once.
+            </p>
             <Link href="/services">
               View all services
-              <ArrowRight size={16} aria-hidden="true" />
+              <ArrowRight size={15} aria-hidden="true" />
             </Link>
           </div>
 
           <div className="airy-service-list">
             {services.map((service, index) => (
               <Link href={service.href} key={service.href}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <h3>{service.title}</h3>
                   <p>{service.text}</p>
@@ -119,97 +70,148 @@ export default async function Home() {
             ))}
           </div>
         </div>
+
+        <figure className="site-container airy-service-image">
+          <Image
+            src="/images/editorial/operations-team.jpg"
+            alt="Professionals collaborating in a modern office"
+            fill
+            sizes="(min-width: 960px) 1180px, 100vw"
+            className="object-cover"
+          />
+          <figcaption>Research, execution, and operations working as one client experience.</figcaption>
+        </figure>
       </section>
 
-      <section className="airy-research" aria-labelledby="airy-research-title">
+      <section className="airy-research" aria-labelledby="research-title">
         <div className="site-container airy-research-grid">
-          <div className="airy-research-media">
+          <figure className="airy-research-media">
             <Image
               src="/images/editorial/research-meeting.jpg"
-              alt="Professionals discussing market research"
+              alt="Professionals reviewing market research around a table"
               fill
-              sizes="(min-width: 960px) 48vw, 100vw"
+              sizes="(min-width: 960px) 50vw, 100vw"
               className="object-cover"
             />
-          </div>
+          </figure>
 
           <div className="airy-research-copy">
-            <p className="airy-eyebrow">Research & community</p>
-            <h2 id="airy-research-title">Useful market knowledge should be easy to find.</h2>
+            <p className="airy-eyebrow">Research & learning</p>
+            <h2 id="research-title">Useful context, without the noise.</h2>
             <p>
-              Research, investor education, market notices, and practical tools are part of the
-              relationship—not extras hidden several levels deep.
+              CGSI publishes market research and practical investor education so clients can move
+              from information to a better-informed decision.
             </p>
 
             {featured ? (
               <Link href={`/insights/${featured.slug}`} className="airy-featured-insight">
-                <span>{formatDate(featured.publishedAt)}</span>
+                <span>{formatDate(featured.publishedAt)} · {featured.category}</span>
                 <strong>{featured.title}</strong>
                 <small>{featured.excerpt}</small>
                 <em>
                   Read insight
-                  <ArrowRight size={15} aria-hidden="true" />
+                  <ArrowRight size={14} aria-hidden="true" />
                 </em>
               </Link>
             ) : null}
 
-            <div className="airy-research-links">
+            <nav className="airy-research-links" aria-label="Research resources">
               <Link href="/insights/guides">Investor guides</Link>
+              <Link href="/insights/library">Research library</Link>
               <Link href="/market-announcements">Market announcements</Link>
-              <Link href="/tools">Investor tools</Link>
-            </div>
+            </nav>
           </div>
         </div>
       </section>
 
-      <section className="airy-pathways" aria-labelledby="airy-pathways-title">
-        <div className="site-container">
-          <div className="airy-pathways-heading">
-            <p className="airy-eyebrow">Find what matters to you</p>
-            <h2 id="airy-pathways-title">Different investors should not have to navigate the same way.</h2>
+      <section className="airy-clients" aria-labelledby="clients-title">
+        <div className="site-container airy-clients-heading">
+          <div>
+            <p className="airy-eyebrow">Who we serve</p>
+            <h2 id="clients-title">Different clients. Different starting points.</h2>
           </div>
+          <p>
+            New investors can start with plain-language guidance. Experienced individuals and
+            professional institutions can move directly to the depth they need.
+          </p>
+        </div>
 
-          <div className="airy-pathway-grid">
-            {pathways.map((pathway) => {
-              const Icon = pathway.icon;
-              return (
-                <Link href={pathway.href} key={pathway.href}>
-                  <Icon aria-hidden="true" />
-                  <h3>{pathway.title}</h3>
-                  <p>{pathway.text}</p>
-                  <span>
-                    Explore
-                    <ArrowRight size={15} aria-hidden="true" />
-                  </span>
+        <div className="site-container airy-client-stories">
+          <article>
+            <figure>
+              <Image
+                src="/images/editorial/long-term-clients.jpg"
+                alt="Clients discussing long-term financial plans"
+                fill
+                sizes="(min-width: 900px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </figure>
+            <div>
+              <p>Individuals & families</p>
+              <h3>A direct relationship for personal investing decisions.</h3>
+              <span>
+                Support for first-time investors, experienced private clients, families, OFWs,
+                and seafarers.
+              </span>
+              <div>
+                <Link href="/clients/individuals-families">
+                  Private clients <ArrowRight size={14} aria-hidden="true" />
                 </Link>
-              );
-            })}
-          </div>
+                <Link href="/clients/new-investors">New investor guide</Link>
+              </div>
+            </div>
+          </article>
+
+          <article>
+            <figure>
+              <Image
+                src="/images/editorial/institutional-team.jpg"
+                alt="Institutional professionals discussing documents in a meeting"
+                fill
+                sizes="(min-width: 900px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </figure>
+            <div>
+              <p>Institutions & corporations</p>
+              <h3>Local execution and operating support for defined mandates.</h3>
+              <span>
+                Market access, research, settlement, custody, and direct coordination for
+                professional requirements.
+              </span>
+              <Link href="/clients/institutions">
+                Institutional services <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section className="airy-latest" aria-labelledby="airy-latest-title">
+      <section className="airy-latest" aria-labelledby="latest-title">
         <div className="site-container airy-latest-grid">
           <div className="airy-latest-heading">
-            <p className="airy-eyebrow">Latest from CGSI</p>
-            <h2 id="airy-latest-title">Research that respects your time.</h2>
+            <p className="airy-eyebrow">Latest insights</p>
+            <h2 id="latest-title">What changed, and why it matters.</h2>
             <p>
-              Dated, scannable, and written to help readers understand what changed and why it
-              matters.
+              Recent research is kept short enough to scan and dated clearly so readers know the
+              context they are looking at.
             </p>
             <Link href="/insights">
               Browse all insights
-              <ArrowRight size={16} aria-hidden="true" />
+              <ArrowRight size={15} aria-hidden="true" />
             </Link>
           </div>
 
           <div className="airy-latest-list">
-            {secondary.map((insight) => (
+            {latest.map((insight) => (
               <Link href={`/insights/${insight.slug}`} key={insight.slug}>
                 <span>{formatDate(insight.publishedAt)}</span>
-                <h3>{insight.title}</h3>
-                <p>{insight.excerpt}</p>
-                <ArrowRight aria-hidden="true" />
+                <div>
+                  <h3>{insight.title}</h3>
+                  <p>{insight.excerpt}</p>
+                </div>
+                <ArrowUpRight aria-hidden="true" />
               </Link>
             ))}
           </div>
