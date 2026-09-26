@@ -1024,3 +1024,143 @@ main .corporate-hero h1 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Knowledge and community hub */
+.home-learning {
+  padding-block: var(--space-section);
+  background: var(--cgsi-deep);
+  color: #fff;
+}
+
+.home-learning .section-label {
+  color: #8ef08e;
+}
+
+.home-learning-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 2.5rem;
+}
+
+.home-learning-heading h2 {
+  margin: 0.65rem 0 0;
+  color: #fff !important;
+  font-size: clamp(2.2rem, 4.2vw, 4.5rem) !important;
+}
+
+.home-learning-heading > p {
+  max-width: 680px;
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  line-height: 1.85;
+}
+
+.home-learning-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgb(255 255 255 / 16%);
+  border-left: 1px solid rgb(255 255 255 / 16%);
+}
+
+.home-learning-card {
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  padding: 1.7rem;
+  border-right: 1px solid rgb(255 255 255 / 16%);
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
+  color: #fff;
+}
+
+.home-learning-card:hover {
+  background: rgb(255 255 255 / 5%);
+}
+
+.home-learning-card svg {
+  width: 23px;
+  height: 23px;
+  color: #8ef08e;
+}
+
+.home-learning-card > p {
+  margin: 2rem 0 0.8rem;
+  color: #8ef08e;
+  font-size: 0.69rem;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.home-learning-card h3 {
+  margin: 0;
+  color: #fff !important;
+  font-family: var(--font-sans);
+  font-size: 1.18rem;
+  font-weight: 750;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.home-learning-card > span {
+  margin-top: 0.8rem;
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.86rem;
+  line-height: 1.75;
+}
+
+.home-learning-card > strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  color: #fff;
+  font-size: 0.78rem;
+}
+
+.home-about-actions,
+.home-services-summary .text-link,
+.home-engagement-heading .text-link,
+.home-leadership-heading .text-link,
+.section-heading-row .text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.home-leadership .leadership-profile-media {
+  display: none;
+}
+
+.home-leadership .leadership-profile-copy {
+  grid-template-columns: 42px 1fr;
+  min-height: 0;
+}
+
+.home-leadership .leadership-profile-copy h3,
+.home-leadership .leadership-profile-role {
+  grid-column: 2;
+}
+
+@media (max-width: 1000px) {
+  .home-learning-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 759px) {
+  .home-learning-heading {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .home-learning-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-learning-card {
+    min-height: 260px;
+  }
+}
