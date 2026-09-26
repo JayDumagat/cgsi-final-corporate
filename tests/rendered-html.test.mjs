@@ -71,20 +71,20 @@ test("every original page and account resource survives the redesign", async () 
 test("mega menus, utility bar, mobile navigation, and client actions remain", async () => {
   const html = await htmlFor("/");
   for (const marker of [
-    "Who we serve",
-    "Expertise",
-    "Research &amp; insights",
-    "Tools",
-    "About CGSI",
+    "Clients",
+    "Services",
+    "Insights",
+    "Resources",
+    "Company",
     "Utility navigation",
     "PSE Trading Participant",
-    "Client portal",
+    "Client login",
     "Open an account",
-    "Open navigation",
+    "Open menu",
   ])
     assert.ok(html.includes(marker), marker);
-  assert.match(html, /clean-mega-viewport/);
-  assert.match(html, /clean-utility-bar/);
+  assert.match(html, /airy-mega-viewport/);
+  assert.match(html, /airy-utility-bar/);
 });
 test("all rendered internal links have a generated destination and local images exist", async () => {
   const links = new Set();
