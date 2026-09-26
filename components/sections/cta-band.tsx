@@ -1,26 +1,25 @@
 import Link from "next/link";
-
-import { Reveal } from "@/components/ui/motion-primitives";
+import { ArrowRight } from "lucide-react";
 
 export function CtaBand() {
   return (
-    <section className="cta-band">
-      <div className="cta-band-mark" aria-hidden="true">CGSI</div>
-      <div className="site-container">
-        <Reveal animate className="cta-band-grid">
-          <div>
-            <p className="cta-band-kicker">Account opening</p>
-            <h2>Ready to open an account?</h2>
-            <p>
-              Request the current checklist, then contact CGSI to confirm the forms and
-              supporting documents required for your account type.
-            </p>
-          </div>
-          <div className="cta-band-actions">
-            <Link href="/open-account" className="btn btn-accent">Request account checklist</Link>
-            <Link href="/contact" className="btn btn-on-dark">Contact CGSI</Link>
-          </div>
-        </Reveal>
+    <section className="final-cta" aria-labelledby="final-cta-title">
+      <div className="site-container final-cta-inner">
+        <div>
+          <p className="eyebrow">Start a conversation</p>
+          <h2 id="final-cta-title">Ready when you are.</h2>
+          <p>
+            Learn what you need to prepare, or speak with CGSI about the right next step for your
+            account or mandate.
+          </p>
+        </div>
+        <div className="final-cta-actions">
+          <Link href="/open-account">
+            Open an account
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+          <Link href="/contact">Contact CGSI</Link>
+        </div>
       </div>
     </section>
   );
