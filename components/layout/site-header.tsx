@@ -3,67 +3,54 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
+import {
+  ChevronDown,
+  ExternalLink,
+  Globe2,
+  Menu,
+  Search,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { SiteLogo } from "@/components/layout/site-logo";
 import type { PublicSiteSettings } from "@/content/site-settings";
-import { megaMenus, type MegaMenu, type NavigationLink } from "@/content/navigation";
+import { megaMenus, type MegaMenu } from "@/content/navigation";
 
-const utilityLinks = [
-  ["Forms", "/resources"],
-  ["Help", "/help"],
-  ["Contact", "/contact"],
-] as const;
-
-function isMenuActive(pathname: string, menu: MegaMenu) {
-  if (menu.id === "clients") return pathname.startsWith("/clients");
-  if (menu.id === "services") return pathname.startsWith("/services") || pathname.startsWith("/platforms");
-  if (menu.id === "insights") {
-    return pathname.startsWith("/insights") || pathname.startsWith("/market-news") || pathname.startsWith("/market-announcements");
-  }
-  if (menu.id === "tools") return pathname.startsWith("/tools");
-  return pathname.startsWith("/about") || pathname.startsWith("/governance") || pathname.startsWith("/careers") || pathname.startsWith("/investor-relations");
-}
-
-function DesktopMenuLink({ item }: { item: NavigationLink }) {
-  return (
-    <NavigationMenu.Link asChild>
-      <Link href={item.href} className="clean-mega-link">
-        <span>
-          <strong>{item.label}</strong>
-          {item.description ? <small>{item.description}</small> : null}
-        </span>
-        <ArrowUpRight size={16} aria-hidden="true" />
-      </Link>
-    </NavigationMenu.Link>
+function isActive(pathname: string, menu: MegaMenu) {
+  return pathname === menu.overviewHref || menu.groups.some((group) =>
+    group.links.some((item) => pathname === item.href || pathname.startsWith(`${item.href}/`)),
   );
 }
 
 function MegaPanel({ menu }: { menu: MegaMenu }) {
   return (
-    <div className="clean-mega-panel">
-      <div className="site-container clean-mega-grid">
-        <div className="clean-mega-intro">
-          <p>{menu.label}</p>
+    <div className="airy-mega-panel">
+      <div className="site-container airy-mega-grid">
+        <div className="airy-mega-intro">
+          <span>{menu.label}</span>
           <h2>{menu.featured.title}</h2>
-          <span>{menu.featured.description}</span>
+          <p>{menu.featured.description}</p>
           <NavigationMenu.Link asChild>
-            <Link href={menu.overviewHref} className="clean-inline-link">
+            <Link href={menu.overviewHref} className="airy-mega-overview">
               {menu.overviewLabel}
-              <ArrowUpRight size={15} aria-hidden="true" />
             </Link>
           </NavigationMenu.Link>
         </div>
 
-        <div className="clean-mega-groups">
+        <div className="airy-mega-links">
           {menu.groups.map((group) => (
             <section key={group.heading}>
               <p>{group.heading}</p>
               <div>
                 {group.links.map((item) => (
-                  <DesktopMenuLink item={item} key={item.href} />
+                  <NavigationMenu.Link asChild key={item.href}>
+                    <Link href={item.href}>
+                      <strong>{item.label}</strong>
+                      {item.description ? <span>{item.description}</span> : null}
+                    </Link>
+                  </NavigationMenu.Link>
                 ))}
               </div>
             </section>
@@ -71,68 +58,6 @@ function MegaPanel({ menu }: { menu: MegaMenu }) {
         </div>
       </div>
     </div>
-  );
-}
-
-function DesktopNavigation({ pathname }: { pathname: string }) {
-  return (
-    <NavigationMenu.Root className="clean-desktop-nav">
-      <NavigationMenu.List className="clean-desktop-nav-list">
-        {megaMenus.map((menu) => (
-          <NavigationMenu.Item key={menu.id}>
-            <NavigationMenu.Trigger
-              className={`clean-nav-trigger ${isMenuActive(pathname, menu) ? "is-active" : ""}`}
-            >
-              {menu.label}
-              <ChevronDown size={15} aria-hidden="true" />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content className="clean-mega-content">
-              <MegaPanel menu={menu} />
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-        ))}
-      </NavigationMenu.List>
-
-      <div className="clean-mega-viewport-wrap">
-        <NavigationMenu.Viewport className="clean-mega-viewport" />
-      </div>
-    </NavigationMenu.Root>
-  );
-}
-
-function MobileMenuItem({ menu, pathname }: { menu: MegaMenu; pathname: string }) {
-  return (
-    <Accordion.Item value={menu.id} className="clean-mobile-group">
-      <Accordion.Header>
-        <Accordion.Trigger className="clean-mobile-trigger">
-          {menu.label}
-          <ChevronDown size={18} aria-hidden="true" />
-        </Accordion.Trigger>
-      </Accordion.Header>
-      <Accordion.Content className="clean-mobile-content">
-        <Dialog.Close asChild>
-          <Link
-            href={menu.overviewHref}
-            className="clean-mobile-overview"
-            aria-current={pathname === menu.overviewHref ? "page" : undefined}
-          >
-            {menu.overviewLabel}
-          </Link>
-        </Dialog.Close>
-        {menu.groups.map((group) => (
-          <div className="clean-mobile-subgroup" key={group.heading}>
-            <p>{group.heading}</p>
-            {group.links.map((item) => (
-              <Dialog.Close asChild key={item.href}>
-                <Link href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
-                  {item.label}
-                </Link>
-              </Dialog.Close>
-            ))}
-          </div>
-        ))}
-      </Accordion.Content>
-    </Accordion.Item>
   );
 }
 
@@ -146,49 +71,71 @@ function MobileNavigation({
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="clean-mobile-menu-button" type="button" aria-label="Open navigation">
-          <Menu size={22} aria-hidden="true" />
+        <button className="airy-mobile-menu-trigger" type="button" aria-label="Open menu">
+          <Menu aria-hidden="true" />
         </button>
       </Dialog.Trigger>
-
       <Dialog.Portal>
-        <Dialog.Overlay className="clean-mobile-overlay" />
-        <Dialog.Content className="clean-mobile-panel" aria-describedby={undefined}>
+        <Dialog.Overlay className="airy-mobile-overlay" />
+        <Dialog.Content className="airy-mobile-panel" aria-describedby={undefined}>
           <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
-          <div className="clean-mobile-head">
+          <div className="airy-mobile-header">
             <SiteLogo />
             <Dialog.Close asChild>
-              <button className="clean-mobile-menu-button" type="button" aria-label="Close navigation">
-                <X size={22} aria-hidden="true" />
+              <button type="button" aria-label="Close menu">
+                <X aria-hidden="true" />
               </button>
             </Dialog.Close>
           </div>
 
-          <nav className="clean-mobile-nav" aria-label="Mobile navigation">
-            <Accordion.Root type="multiple">
-              {megaMenus.map((menu) => (
-                <MobileMenuItem key={menu.id} menu={menu} pathname={pathname} />
-              ))}
-            </Accordion.Root>
-          </nav>
+          <Accordion.Root type="multiple" className="airy-mobile-accordion">
+            {megaMenus.map((menu) => (
+              <Accordion.Item key={menu.id} value={menu.id}>
+                <Accordion.Header>
+                  <Accordion.Trigger>
+                    <span>{menu.label}</span>
+                    <ChevronDown aria-hidden="true" />
+                  </Accordion.Trigger>
+                </Accordion.Header>
+                <Accordion.Content>
+                  <div className="airy-mobile-links">
+                    <Dialog.Close asChild>
+                      <Link
+                        href={menu.overviewHref}
+                        aria-current={pathname === menu.overviewHref ? "page" : undefined}
+                      >
+                        {menu.overviewLabel}
+                      </Link>
+                    </Dialog.Close>
+                    {menu.groups.flatMap((group) => group.links).map((item) => (
+                      <Dialog.Close asChild key={item.href}>
+                        <Link
+                          href={item.href}
+                          aria-current={pathname === item.href ? "page" : undefined}
+                        >
+                          {item.label}
+                        </Link>
+                      </Dialog.Close>
+                    ))}
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
 
-          <div className="clean-mobile-actions">
+          <div className="airy-mobile-primary-actions">
             <Dialog.Close asChild>
-              <Link href="/open-account" className="clean-primary-button">Open an account</Link>
+              <Link href="/open-account">Open an account</Link>
             </Dialog.Close>
-            <a href={settings.clientLoginUrl} target="_blank" rel="noreferrer" className="clean-secondary-button">
-              Client portal
-              <ArrowUpRight size={15} aria-hidden="true" />
-              <span className="sr-only"> opens in a new tab</span>
+            <a href={settings.clientLoginUrl} target="_blank" rel="noreferrer">
+              Client login <ExternalLink size={15} aria-hidden="true" />
             </a>
           </div>
 
-          <div className="clean-mobile-utility">
-            {utilityLinks.map(([label, href]) => (
-              <Dialog.Close asChild key={href}>
-                <Link href={href}>{label}</Link>
-              </Dialog.Close>
-            ))}
+          <div className="airy-mobile-meta">
+            <Link href="/contact">Contact</Link>
+            <Link href="/help">Help</Link>
+            <Link href="/resources">Forms</Link>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
@@ -200,37 +147,69 @@ export function SiteHeader({ settings }: { settings: PublicSiteSettings }) {
   const pathname = usePathname();
 
   return (
-    <header className="clean-site-header">
-      <div className="clean-utility-bar">
-        <div className="site-container clean-utility-inner">
-          <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer">
-            PSE Trading Participant
-            <ArrowUpRight size={13} aria-hidden="true" />
-            <span className="sr-only"> opens in a new tab</span>
-          </a>
-          <nav aria-label="Utility navigation">
-            {utilityLinks.map(([label, href]) => (
-              <Link href={href} key={href}>{label}</Link>
-            ))}
+    <header className="airy-site-header">
+      <div className="airy-utility-bar">
+        <div className="site-container airy-utility-inner">
+          <div className="airy-utility-left">
+            <span>Philippine equity brokerage</span>
+            <span aria-hidden="true">•</span>
+            <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer">
+              PSE Trading Participant
+              <ExternalLink size={12} aria-hidden="true" />
+            </a>
+          </div>
+          <nav className="airy-utility-right" aria-label="Utility navigation">
+            <Link href="/insights">Insights</Link>
+            <Link href="/resources">Forms</Link>
+            <Link href="/help">Help</Link>
+            <Link href="/contact">Contact</Link>
+            <span className="airy-utility-language" aria-label="Language: English">
+              <Globe2 size={14} aria-hidden="true" />
+              EN
+            </span>
             <a href={settings.clientLoginUrl} target="_blank" rel="noreferrer">
-              Client portal
-              <ArrowUpRight size={13} aria-hidden="true" />
-              <span className="sr-only"> opens in a new tab</span>
+              Client login
+              <ExternalLink size={12} aria-hidden="true" />
             </a>
           </nav>
         </div>
       </div>
 
-      <div className="clean-main-nav">
-        <div className="site-container clean-main-nav-inner">
-          <SiteLogo />
-          <DesktopNavigation pathname={pathname} />
-          <div className="clean-header-actions">
-            <Link href="/open-account" className="clean-primary-button">Open an account</Link>
+      <div className="site-container airy-primary-nav">
+        <SiteLogo />
+
+        <NavigationMenu.Root className="airy-desktop-navigation">
+          <NavigationMenu.List className="airy-desktop-navigation-list">
+            {megaMenus.map((menu) => (
+              <NavigationMenu.Item key={menu.id}>
+                <NavigationMenu.Trigger
+                  className={`airy-nav-trigger ${isActive(pathname, menu) ? "is-active" : ""}`}
+                >
+                  {menu.label}
+                  <ChevronDown aria-hidden="true" />
+                </NavigationMenu.Trigger>
+                <NavigationMenu.Content className="airy-mega-content">
+                  <MegaPanel menu={menu} />
+                </NavigationMenu.Content>
+              </NavigationMenu.Item>
+            ))}
+          </NavigationMenu.List>
+          <div className="airy-mega-viewport-wrap">
+            <NavigationMenu.Viewport className="airy-mega-viewport" />
           </div>
-          <div className="clean-mobile-only">
-            <MobileNavigation pathname={pathname} settings={settings} />
-          </div>
+        </NavigationMenu.Root>
+
+        <div className="airy-primary-nav-actions">
+          <Link href="/insights/library" className="airy-nav-search" aria-label="Search research">
+            <Search aria-hidden="true" />
+          </Link>
+          <Link href="/open-account" className="airy-open-account">
+            Open an account
+          </Link>
+        </div>
+
+        <div className="airy-mobile-only">
+          <MobileNavigation pathname={pathname} settings={settings} />
         </div>
       </div>
     </header>
