@@ -6,16 +6,16 @@ export function CtaBand() {
     <section className="airy-final-cta" aria-labelledby="final-cta-title">
       <div className="site-container airy-final-cta-inner">
         <div>
-          <p className="airy-eyebrow">Start a conversation</p>
-          <h2 id="final-cta-title">Ready when you are.</h2>
+          <p className="airy-eyebrow">Account opening</p>
+          <h2 id="final-cta-title">Open an account with CGSI.</h2>
           <p>
-            Learn what you need to prepare, or speak with CGSI about the right next step for your
-            account or mandate.
+            Review the requirements first, or contact the team if you need help choosing the
+            appropriate account path.
           </p>
         </div>
         <div className="airy-final-cta-actions">
           <Link href="/open-account">
-            Open an account
+            View requirements
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
           <Link href="/contact">Contact CGSI</Link>
