@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { ServiceCategoryTabs } from "@/components/sections/service-category-tabs";
 import { Reveal } from "@/components/ui/motion-primitives";
 import { CorporateHero } from "@/components/sections/corporate-hero";
+import { HomeOrientation } from "@/components/sections/home-orientation";
 import { marketAnnouncements, marketNews } from "@/content/market-content";
 import { leadership, marketSnapshot } from "@/content/site-settings";
 import { getPublishedInsights, getPublicSiteSettings } from "@/lib/content";
@@ -256,6 +257,7 @@ export default async function Home() {
   return (
     <>
       <CorporateHero />
+      <HomeOrientation />
 
       {/* Temporarily hidden while the homepage flow is being refined. */}
       {false && (
