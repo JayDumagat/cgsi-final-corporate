@@ -1,52 +1,61 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export function CorporateHero() {
   return (
-    <section className="corporate-hero site-container">
-      <div className="corporate-hero-copy">
-        <p className="section-label"><span className="hero-status-dot" aria-hidden="true" />PHILIPPINE EQUITY BROKERAGE</p>
-        <h1>
-          A partner
-          <br />
-          <span>beyond the trade.</span>
-        </h1>
-        <p className="corporate-hero-description">
-          Market access with a human point of contact.
-        </p>
-        <p>
-          Research, execution, and post-trade support for investors who value clear
-          decisions, accountable service, and access to the Philippine equity market.
-        </p>
-        <div className="corporate-hero-actions">
-          <Link className="btn btn-primary" href="/open-account">
-            Open an account <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-          <Link className="text-link" href="/insights">
-            Market insights <ArrowRight size={18} aria-hidden="true" />
-          </Link>
+    <section className="new-hero" aria-labelledby="home-title">
+      <div className="site-container new-hero-grid">
+        <div className="new-hero-copy">
+          <p className="eyebrow">Caballes-Go Securities, Inc.</p>
+          <h1 id="home-title">
+            Investing with
+            <span> clarity and perspective.</span>
+          </h1>
+          <p className="new-hero-lead">
+            Philippine equity brokerage for individuals, families, and institutions who value
+            informed decisions, disciplined execution, and direct human support.
+          </p>
+          <div className="new-hero-actions">
+            <Link href="/open-account" className="primary-action">
+              Open an account
+              <ArrowRight size={17} aria-hidden="true" />
+            </Link>
+            <Link href="/insights" className="secondary-action">
+              Explore insights
+            </Link>
+          </div>
+          <div className="new-hero-proof" aria-label="Firm profile">
+            <div>
+              <strong>PSE</strong>
+              <span>Trading Participant</span>
+            </div>
+            <div>
+              <strong>Retail + Institutional</strong>
+              <span>Client coverage</span>
+            </div>
+            <div>
+              <strong>Research-led</strong>
+              <span>Market perspective</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="new-hero-media">
+          <Image
+            src="/images/editorial/makati-dusk.jpg"
+            alt="Makati skyline at dusk"
+            fill
+            priority
+            sizes="(min-width: 960px) 48vw, 100vw"
+            className="object-cover"
+          />
+          <div className="new-hero-caption">
+            <span>Philippine markets</span>
+            <span>Perspective for long-term decisions</span>
+          </div>
         </div>
       </div>
-      <figure className="corporate-hero-figure">
-        <picture>
-          <img
-            src="/images/editorial/makati-dusk.jpg"
-            width={2400}
-            height={1600}
-            fetchPriority="high"
-            alt="Makati skyline at dusk, representing the Philippine business and capital market"
-          />
-        </picture>
-        <figcaption>
-          <span>Philippine market perspective. Professional execution.</span>
-          <span>Caballes-Go Securities, Inc.</span>
-        </figcaption>
-      </figure>
-      <nav className="hero-pathways" aria-label="Quick pathways">
-        <Link href="/clients"><span>01</span><div><strong>Invest your way</strong><small>Find the right client pathway</small></div><ArrowRight aria-hidden="true" size={20}/></Link>
-        <Link href="/services"><span>02</span><div><strong>Explore our expertise</strong><small>Support at every stage</small></div><ArrowRight aria-hidden="true" size={20}/></Link>
-        <Link href="/resources"><span>03</span><div><strong>Find what you need</strong><small>Account forms and resources</small></div><ArrowRight aria-hidden="true" size={20}/></Link>
-      </nav>
     </section>
   );
 }
