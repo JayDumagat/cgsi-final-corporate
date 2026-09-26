@@ -12,11 +12,11 @@ export function CorporateHero() {
           <span>beyond the trade.</span>
         </h1>
         <p className="corporate-hero-description">
-          Personal expertise. A modern perspective.
+          Market access with a human point of contact.
         </p>
         <p>
-          From market insight to broker-assisted trading and post-trade support,
-          CGSI works alongside you at every step.
+          Research, execution, and post-trade support for investors who value clear
+          decisions, accountable service, and access to the Philippine equity market.
         </p>
         <div className="corporate-hero-actions">
           <Link className="btn btn-primary" href="/open-account">
@@ -30,15 +30,15 @@ export function CorporateHero() {
       <figure className="corporate-hero-figure">
         <picture>
           <img
-            src="/images/ret.jpeg"
-            width={399}
-            height={501}
+            src="/images/editorial/makati-dusk.jpg"
+            width={2400}
+            height={1600}
             fetchPriority="high"
-            alt="Illuminated high-rise tower against a deep blue evening sky"
+            alt="Makati skyline at dusk, representing the Philippine business and capital market"
           />
         </picture>
         <figcaption>
-          <span>Perspective. Partnership. Progress.</span>
+          <span>Philippine market perspective. Professional execution.</span>
           <span>Caballes-Go Securities, Inc.</span>
         </figcaption>
       </figure>
