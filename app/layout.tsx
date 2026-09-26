@@ -4,6 +4,7 @@ import "@fontsource-variable/source-serif-4";
 import "./globals.css";
 import "./editorial.css";
 import "./refinement.css";
+import "./institutional.css";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -25,6 +26,8 @@ export const metadata: Metadata = {
     "PSE trading participant",
     "equity brokerage Philippines",
   ],
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "Caballes-Go Securities, Inc.",
     description:
@@ -32,6 +35,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_PH",
     images: [{ url: "/images/editorial/makati-dusk.jpg", width: 2400, height: 1600 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Caballes-Go Securities, Inc.",
+    description: "Philippine equity brokerage for individual and institutional clients.",
+    images: ["/images/editorial/makati-dusk.jpg"],
   },
   icons: {
     icon: "/favicon.svg",

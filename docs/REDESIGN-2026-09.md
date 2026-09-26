@@ -85,3 +85,59 @@ launch checks. Aim for LCP ≤2.5s, INP ≤200ms, and CLS ≤0.1 at the 75th per
 for mobile and desktop. No real-user performance measurements have been obtained.
 
 The old Sites project returned project-not-found. No deployment or audience change occurred.
+
+## Institutional-modern redesign pass — 26 September 2026
+
+This branch establishes the next visual direction requested for the corporate site. The existing
+multi-page information architecture and five mega-menu domains remain intact. The work deliberately
+does not turn CGSI into a fintech-style trading app.
+
+### Experience direction
+
+- Modern, clean, editorial layouts with institutional restraint.
+- The brand green `#00CC00` is treated as a directional accent; deeper green shades carry
+  institutional surfaces and high-emphasis actions.
+- Square-to-subtle-radius geometry, visible rules, and disciplined grids replace rounded SaaS-card
+  styling.
+- The homepage starts with audience orientation so first-time investors, experienced investors,
+  institutional visitors, and existing clients can recognize their path without learning internal
+  brokerage terminology first.
+- Research, investor education, market notices, tools, governance, and disclosures are presented as
+  a connected knowledge ecosystem rather than secondary footer content.
+- Static market values are no longer foregrounded on the homepage where visitors could mistake
+  historical numbers for a live quote feed.
+
+### HCI rationale
+
+The redesign applies recognition over recall, progressive disclosure, Hick's Law, clear visual
+hierarchy, large target sizes, source/date visibility, and consistent navigation language. Content
+is designed to work for a broad adult audience, including people with limited securities-market
+knowledge and professional users who need fast access to detailed information.
+
+The homepage uses a two-layer path: fast audience/task orientation first, then deep service,
+research, governance, and support material. The mega menu remains the desktop depth mechanism;
+mobile continues to expose the same destinations through an accessible disclosure pattern.
+
+### SEO, GEO, and production work
+
+- Canonical metadata and social metadata are explicit.
+- Existing organization structured data remains.
+- Sitemap and robots metadata remain part of the application.
+- Next.js image optimization is enabled for AVIF/WebP instead of globally bypassing optimization.
+- Baseline security headers are configured at the framework layer.
+- Semantic headings and section labels are tied with `aria-labelledby` where appropriate.
+- Reduced-motion behavior and visible keyboard focus remain mandatory.
+
+### Photography
+
+The redesign reuses the locally hosted Pexels-derived editorial library documented in
+`IMAGE-SOURCES.md`. The low-resolution `ret.jpeg` hero is replaced by the documented Makati dusk
+asset so the first viewport remains sharp on desktop screens.
+
+### Stack migration note
+
+The visual and information-architecture pass is intentionally isolated from the headless-component
+migration so dependency-lock changes can be reviewed independently. The current interaction
+primitives remain functional while the Ark UI/Boneyard migration is prepared as a separate,
+testable dependency commit rather than leaving `package.json` and `package-lock.json` out of sync.
+
