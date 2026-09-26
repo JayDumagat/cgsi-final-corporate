@@ -48,7 +48,6 @@ function MegaPanel({ menu }: { menu: MegaMenu }) {
                   <NavigationMenu.Link asChild key={item.href}>
                     <Link href={item.href}>
                       <strong>{item.label}</strong>
-                      {item.description ? <span>{item.description}</span> : null}
                     </Link>
                   </NavigationMenu.Link>
                 ))}
