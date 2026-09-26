@@ -80,7 +80,7 @@ test("mega menus, utility bar, mobile navigation, and client actions remain", as
     "PSE Trading Participant",
     "Client login",
     "Open an account",
-    "Open menu",
+    "Open navigation",
   ])
     assert.ok(html.includes(marker), marker);
   assert.match(html, /rl-mega-viewport/);
