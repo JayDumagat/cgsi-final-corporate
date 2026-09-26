@@ -1,45 +1,82 @@
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-
-import { PageHero } from "@/components/sections/page-hero";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Investor Tools",
+  title: "Resources",
   description:
-    "Explore CGSI planning tools and the roadmap for screening, watchlist, and portfolio workspaces.",
+    "Use CGSI investor tools, account resources, and planned research workspaces.",
 };
 
-const tools = [
-  ["Available", "Investment calculators", "Estimate position size and organize the inputs behind an investment conversation.", "/tools/calculators"],
-  ["Planned", "Stock screener", "A structured discovery workflow built around transparent, investor-defined criteria.", "/tools/stock-screener"],
-  ["Planned", "Watchlist", "A focused place to follow securities, disclosures, and the questions still to answer.", "/tools/watchlist"],
-  ["Planned", "Portfolio workspace", "A future view for allocations, concentration, objectives, and portfolio review.", "/tools/portfolio"],
+const planned = [
+  ["Portfolio workspace", "Review allocation, concentration, and portfolio questions in one place.", "/tools/portfolio"],
+  ["Stock screener", "Narrow a research universe using transparent investor-defined criteria.", "/tools/stock-screener"],
+  ["Watchlist", "Keep securities and the questions you are following together.", "/tools/watchlist"],
 ] as const;
 
 export default function ToolsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Investor tools"
-        title="Better inputs for more deliberate decisions."
-        description="Practical utilities should make the work clearer without implying that a formula can replace judgment, suitability, or professional discussion."
-        image="/images/editorial/market-office.jpg"
-        imageAlt="Financial market information displayed on a professional workstation"
-      />
-
-      <section className="clean-directory">
-        <div className="site-container">
-          <div className="clean-section-heading">
-            <p className="clean-eyebrow">Tools roadmap</p>
-            <h2>One tool for each stage of the workflow.</h2>
+      <section className="rl-subhero" aria-labelledby="resources-page-title">
+        <div className="site-container rl-subhero-grid">
+          <div>
+            <p className="rl-kicker">Resources</p>
+            <h1 id="resources-page-title">Practical tools for the work around an investment decision.</h1>
+            <p>
+              Use calculators, forms, and research resources to prepare. Tools should clarify the
+              inputs—not make the decision for you.
+            </p>
           </div>
-          <div className="clean-directory-list">
-            {tools.map(([status,title,text,href],index)=>(
+          <figure>
+            <Image
+              src="/images/editorial/market-office.jpg"
+              alt="Market information displayed in a professional office"
+              fill
+              priority
+              sizes="(min-width: 960px) 48vw, 100vw"
+              className="object-cover"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section className="rl-tool-feature" aria-labelledby="calculator-title">
+        <div className="site-container rl-tool-feature-grid">
+          <div>
+            <p className="rl-kicker">Available now</p>
+            <h2 id="calculator-title">Estimate a trade before you place it.</h2>
+            <p>Organize capital, price, and estimated transaction costs before speaking with CGSI or placing an order.</p>
+            <Link href="/tools/calculators">
+              Open investment calculators
+              <ArrowRight size={15} aria-hidden="true" />
+            </Link>
+          </div>
+          <figure>
+            <Image
+              src="/images/editorial/pse-trading-floor.jpg"
+              alt="Philippine securities market trading environment"
+              fill
+              sizes="(min-width: 960px) 46vw, 100vw"
+              className="object-cover"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section className="rl-planned-tools" aria-labelledby="planned-title">
+        <div className="site-container rl-service-directory-grid">
+          <div>
+            <p className="rl-kicker">Investor workspace</p>
+            <h2 id="planned-title">A clearer home for research tasks as the platform grows.</h2>
+            <p>These pages describe the intended workflow so visitors know what is available today and what is planned.</p>
+          </div>
+          <div className="rl-service-directory-list">
+            {planned.map(([title, text, href], index) => (
               <Link href={href} key={href}>
-                <span>{String(index+1).padStart(2,"0")}</span>
-                <div><small>{status}</small><h3>{title}</h3><p>{text}</p></div>
-                <ArrowRight size={18} aria-hidden="true" />
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div><h3>{title}</h3><p>{text}</p></div>
+                <ArrowUpRight size={15} aria-hidden="true" />
               </Link>
             ))}
           </div>
