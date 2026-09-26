@@ -1,6 +1,9 @@
 name: CGSI CI
 
 on:
+  push:
+    branches:
+      - redesign/clean-modern-institutional
   pull_request:
     branches:
       - main
