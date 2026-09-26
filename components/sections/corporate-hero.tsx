@@ -1,52 +1,48 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export function CorporateHero() {
   return (
-    <section className="corporate-hero site-container">
-      <div className="corporate-hero-copy">
-        <p className="section-label"><span className="hero-status-dot" aria-hidden="true" />PHILIPPINE EQUITY BROKERAGE</p>
-        <h1>
-          A partner
-          <br />
-          <span>beyond the trade.</span>
-        </h1>
-        <p className="corporate-hero-description">
-          Market access with a human point of contact.
-        </p>
-        <p>
-          Research, execution, and post-trade support for investors who value clear
-          decisions, accountable service, and access to the Philippine equity market.
-        </p>
-        <div className="corporate-hero-actions">
-          <Link className="btn btn-primary" href="/open-account">
-            Open an account <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-          <Link className="text-link" href="/insights">
-            Market insights <ArrowRight size={18} aria-hidden="true" />
-          </Link>
+    <section className="clean-hero" aria-labelledby="home-title">
+      <div className="site-container clean-hero-grid">
+        <div className="clean-hero-copy">
+          <p className="clean-eyebrow">Philippine equity brokerage</p>
+          <h1 id="home-title">Invest with clarity.</h1>
+          <p className="clean-hero-lead">
+            Market access, research, and human support for investors navigating the Philippine
+            equity market.
+          </p>
+          <div className="clean-hero-actions">
+            <Link href="/open-account" className="clean-primary-button">
+              Open an account
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+            <Link href="/insights" className="clean-text-link">
+              Explore research
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+          </div>
+          <p className="clean-hero-note">
+            For retail, high-net-worth, corporate, and institutional clients.
+          </p>
         </div>
-      </div>
-      <figure className="corporate-hero-figure">
-        <picture>
-          <img
+
+        <figure className="clean-hero-visual">
+          <Image
             src="/images/editorial/makati-dusk.jpg"
-            width={2400}
-            height={1600}
-            fetchPriority="high"
-            alt="Makati skyline at dusk, representing the Philippine business and capital market"
+            alt="Makati business district at dusk"
+            fill
+            priority
+            sizes="(min-width: 900px) 48vw, 100vw"
+            className="object-cover"
           />
-        </picture>
-        <figcaption>
-          <span>Philippine market perspective. Professional execution.</span>
-          <span>Caballes-Go Securities, Inc.</span>
-        </figcaption>
-      </figure>
-      <nav className="hero-pathways" aria-label="Quick pathways">
-        <Link href="/clients"><span>01</span><div><strong>Invest your way</strong><small>Find the right client pathway</small></div><ArrowRight aria-hidden="true" size={20}/></Link>
-        <Link href="/services"><span>02</span><div><strong>Explore our expertise</strong><small>Support at every stage</small></div><ArrowRight aria-hidden="true" size={20}/></Link>
-        <Link href="/resources"><span>03</span><div><strong>Find what you need</strong><small>Account forms and resources</small></div><ArrowRight aria-hidden="true" size={20}/></Link>
-      </nav>
+          <figcaption>
+            <span>Philippine market perspective</span>
+            <span>Caballes-Go Securities, Inc.</span>
+          </figcaption>
+        </figure>
+      </div>
     </section>
   );
 }

@@ -4,7 +4,7 @@ import "@fontsource-variable/source-serif-4";
 import "./globals.css";
 import "./editorial.css";
 import "./refinement.css";
-import "./institutional.css";
+import "./clean.css";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -18,20 +18,21 @@ export const metadata: Metadata = {
     template: "%s | Caballes-Go Securities",
   },
   description:
-    "Client-focused Philippine equity brokerage offering broker-assisted trading, advisory and execution, market research, settlement support, and custodial services.",
+    "Philippine equity brokerage providing market access, research, execution, settlement support, and client service for retail and institutional investors.",
   keywords: [
     "Caballes-Go Securities",
     "CGSI",
     "Philippine stock broker",
     "PSE trading participant",
     "equity brokerage Philippines",
+    "Philippine equities",
   ],
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
     title: "Caballes-Go Securities, Inc.",
     description:
-      "Philippine equity brokerage for individual and institutional clients.",
+      "Philippine equity brokerage for individual, corporate, and institutional clients.",
     type: "website",
     locale: "en_PH",
     images: [{ url: "/images/editorial/makati-dusk.jpg", width: 2400, height: 1600 }],
@@ -39,7 +40,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Caballes-Go Securities, Inc.",
-    description: "Philippine equity brokerage for individual and institutional clients.",
+    description:
+      "Philippine equity brokerage for individual, corporate, and institutional clients.",
     images: ["/images/editorial/makati-dusk.jpg"],
   },
   icons: {
@@ -65,29 +67,13 @@ const organizationSchema = {
   },
 };
 
-const themeBootstrap = `
-  (() => {
-    try {
-      const saved = localStorage.getItem("cgsi-theme");
-      const theme = saved === "dark" || saved === "light"
-        ? saved
-        : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-    } catch (_) {}
-  })();
-`;
-
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const settings = await getPublicSiteSettings();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
-      </head>
+    <html lang="en">
       <body>
         <a href="#main-content" className="skip-link">
           Skip to main content

@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { Reveal } from "@/components/ui/motion-primitives";
+import { PageHero } from "@/components/sections/page-hero";
 import { getPublishedInsights } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Research & Insights",
   description:
-    "Enter the CGSI research desk for market notes, structured investor guides, and the complete publication library.",
+    "CGSI research, market notes, investor guides, and source-based publications for Philippine equity investors.",
 };
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-PH", {
     day: "2-digit",
-    month: "long",
+    month: "short",
     year: "numeric",
     timeZone: "Asia/Manila",
   }).format(new Date(value));
@@ -22,120 +23,96 @@ function formatDate(value: string) {
 
 export default async function InsightsPage() {
   const insights = await getPublishedInsights();
-  const lead = insights.find((item) => item.publicationType === "market-note") ?? insights[0];
-  const latestGuides = insights.filter((item) => item.publicationType === "guide").slice(0, 2);
+  const featured = insights[0];
+  const latest = insights.slice(1, 5);
 
   return (
     <>
-      <section className="research-portal-masthead">
-        <div className="site-container">
-          <div className="research-portal-brand">
-            <span>CGSI Research</span>
-            <span>Philippine equities</span>
-            <span>Evidence before urgency</span>
-          </div>
-          <div className="research-portal-title">
-            <div>
-              <p>Research & insights</p>
-              <h1>Three different ways to use the research desk.</h1>
-            </div>
-            <p>
-              Read timely market interpretation, follow a structured learning path, or search
-              the complete source-based publication archive.
-            </p>
-          </div>
-          <nav aria-label="Research destinations">
-            <Link href="/insights/market-notes">Market notes</Link>
-            <Link href="/insights/guides">Investor guides</Link>
-            <Link href="/insights/library">Research library</Link>
-            <Link href="/market-news">Market news</Link>
-          </nav>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Research & insights"
+        title="Evidence before urgency."
+        description="Read market context, build investing knowledge, and search source-based publications without having to sort through unnecessary noise."
+        image="/images/editorial/research-meeting.jpg"
+        imageAlt="Professionals reviewing market research together"
+      />
 
-      {lead ? (
-        <section className="research-portal-lead">
-          <div className="site-container research-portal-lead-grid">
-            <Reveal animate className="research-portal-lead-media">
+      {featured ? (
+        <section className="clean-insights-feature">
+          <div className="site-container clean-insights-feature-grid">
+            <Link href={`/insights/${featured.slug}`} className="clean-insights-feature-image">
               <Image
                 src="/images/editorial/trading-research.jpg"
-                alt="A market professional reviewing financial information across trading screens"
+                alt="Financial market information displayed across professional screens"
                 fill
-                priority
-                sizes="(min-width: 1024px) 62vw, 100vw"
+                sizes="(min-width: 900px) 55vw, 100vw"
                 className="object-cover"
               />
-            </Reveal>
-            <Reveal animate direction="right" className="research-portal-lead-copy">
-              <p>Latest market note · {formatDate(lead.publishedAt)}</p>
-              <h2>{lead.title}</h2>
-              <span>{lead.excerpt}</span>
-              <Link href={`/insights/${lead.slug}`}>Read the note →</Link>
-            </Reveal>
+            </Link>
+            <div>
+              <p className="clean-eyebrow">Latest publication</p>
+              <small>{featured.category} · {formatDate(featured.publishedAt)}</small>
+              <h2>{featured.title}</h2>
+              <p>{featured.excerpt}</p>
+              <Link href={`/insights/${featured.slug}`} className="clean-text-link">
+                Read the publication
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </section>
       ) : null}
 
-      <section className="research-destinations">
-        <div className="site-container research-destination-grid">
-          <Reveal animate>
-            <Link href="/insights/market-notes" className="research-destination research-destination-notes">
-              <span>01 / Timely</span>
-              <h2>Market notes</h2>
-              <p>Dated observations organized around what moved, what to verify, and what matters next.</p>
-              <em>Read market notes →</em>
+      <section className="clean-insights-index">
+        <div className="site-container clean-insights-index-grid">
+          <div>
+            <p className="clean-eyebrow">Research paths</p>
+            <h2>Choose the depth you need.</h2>
+          </div>
+
+          <nav aria-label="Research destinations">
+            <Link href="/insights/market-notes">
+              <span>Market notes</span>
+              <small>Dated market observations and context</small>
+              <ArrowUpRight size={15} aria-hidden="true" />
             </Link>
-          </Reveal>
-          <Reveal animate delay={0.04}>
-            <Link href="/insights/guides" className="research-destination research-destination-guides">
-              <span>02 / Structured</span>
-              <h2>Investor guides</h2>
-              <p>Learning paths built around readiness, risk, research discipline, and portfolio purpose.</p>
-              <em>Start a learning path →</em>
+            <Link href="/insights/guides">
+              <span>Investor guides</span>
+              <small>Plain-language investing education</small>
+              <ArrowUpRight size={15} aria-hidden="true" />
             </Link>
-          </Reveal>
-          <Reveal animate delay={0.08}>
-            <Link href="/insights/library" className="research-destination research-destination-library">
-              <span>03 / Searchable</span>
-              <h2>Research library</h2>
-              <p>A filterable archive of reports, guides, commentary, and source-based publications.</p>
-              <em>Search the library →</em>
+            <Link href="/insights/library">
+              <span>Research library</span>
+              <small>Search the complete publication archive</small>
+              <ArrowUpRight size={15} aria-hidden="true" />
             </Link>
-          </Reveal>
+            <Link href="/market-announcements">
+              <span>Market announcements</span>
+              <small>Official notices and market information</small>
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+          </nav>
         </div>
       </section>
 
-      <section className="research-guide-preview">
-        <div className="site-container research-guide-preview-grid">
-          <div>
-            <p className="section-label">From the learning desk</p>
-            <h2>Build the process before adding exposure.</h2>
+      {latest.length ? (
+        <section className="clean-latest-list">
+          <div className="site-container">
+            <div className="clean-section-heading">
+              <p className="clean-eyebrow">Latest from CGSI</p>
+              <h2>Recent publications.</h2>
+            </div>
+            <div>
+              {latest.map((item) => (
+                <Link href={`/insights/${item.slug}`} key={item.slug}>
+                  <small>{item.category} · {formatDate(item.publishedAt)}</small>
+                  <h3>{item.title}</h3>
+                  <span>{item.readTime}</span>
+                </Link>
+              ))}
+            </div>
           </div>
-          <div>
-            {latestGuides.map((guide) => (
-              <Link href={`/insights/${guide.slug}`} key={guide.slug}>
-                <span>{guide.category}</span>
-                <strong>{guide.title}</strong>
-                <small>{guide.readTime}</small>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="research-standards" id="research-standards">
-        <div className="site-container research-standards-grid">
-          <div>
-            <p className="section-label section-label-on-dark">Research standards</p>
-            <h2>Evidence before urgency.</h2>
-          </div>
-          <div>
-            <article><span>01</span><h3>Start at the source</h3><p>Anchor analysis in issuer disclosures, exchange information, and established market data.</p></article>
-            <article><span>02</span><h3>State uncertainty</h3><p>Separate verified facts, interpretation, and areas where the evidence remains incomplete.</p></article>
-            <article><span>03</span><h3>Keep risk visible</h3><p>Research supports judgment; it does not remove downside or guarantee an outcome.</p></article>
-          </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   );
 }

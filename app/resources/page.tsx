@@ -1,60 +1,65 @@
 import type { Metadata } from "next";
-import { PageIntro, Faqs, TextLink } from "@/components/sections/editorial";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+
 import { DocumentList } from "@/components/sections/document-list";
+import { PageHero } from "@/components/sections/page-hero";
 import { company } from "@/content/company";
+
 export const metadata: Metadata = {
   title: "Resources",
+  description: "CGSI account forms, client request documents, and account-preparation resources.",
   alternates: { canonical: "/resources" },
 };
+
 export default function ResourcesPage() {
   return (
     <>
-      <PageIntro label="Resources" title="The right information. Within reach.">
-        <p>
-          Find account forms, prepare for your next step, and get answers to
-          common questions. No sign-in is required.
-        </p>
-      </PageIntro>
-      <section id="forms" className="ed-section ed-container">
-        <div className="ed-section-heading">
-          <div>
-            <p className="ed-eyebrow">DOCUMENT LIBRARY</p>
-            <h2>Account forms & requests.</h2>
+      <PageHero
+        eyebrow="Resources"
+        title="The documents you need, without the hunt."
+        description="Find account forms, client requests, and preparation guides. Confirm the approved submission method before sending sensitive records."
+        compact
+      />
+
+      <section className="clean-resources">
+        <div className="site-container">
+          <div className="clean-resources-heading">
+            <div>
+              <p className="clean-eyebrow">Document library</p>
+              <h2>Account forms & requests.</h2>
+            </div>
+            <a href={company.forms} target="_blank" rel="noreferrer" className="clean-text-link">
+              Official CGSI forms library <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
           </div>
-          <TextLink href={company.forms} external>
-            CGSI’s official forms library
-          </TextLink>
-        </div>
-        <div className="ed-content-grid">
-          <div>
-            <h3>Individual accounts</h3>
-            <DocumentList group="individual" />
-            <TextLink href="/get-started/individual">
-              Individual account requirements
-            </TextLink>
+
+          <div className="clean-resource-groups">
+            <section>
+              <h3>Individual accounts</h3>
+              <DocumentList group="individual" />
+              <Link href="/get-started/individual" className="clean-text-link">
+                Individual requirements <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </section>
+            <section>
+              <h3>Corporate accounts</h3>
+              <DocumentList group="corporate" />
+              <Link href="/get-started/corporate" className="clean-text-link">
+                Corporate requirements <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </section>
           </div>
-          <div>
-            <h3>Corporate accounts</h3>
-            <DocumentList group="corporate" />
-            <TextLink href="/get-started/corporate">
-              Corporate account requirements
-            </TextLink>
-          </div>
-        </div>
-        <div style={{ marginTop: 48 }}>
-          <h3>Existing client requests</h3>
-          <DocumentList group="client" />
-        </div>
-        <p className="ed-note">
-          Contact CGSI if you need help reading or completing a document.
-          Confirm the appropriate submission method before sending identity or
-          account records.
-        </p>
-      </section>
-      <section id="faqs" className="ed-section ed-container">
-        <div className="ed-faq-layout">
-          <h2>Common questions.</h2>
-          <Faqs />
+
+          <section className="clean-client-requests">
+            <h3>Existing client requests</h3>
+            <DocumentList group="client" />
+          </section>
+
+          <p className="clean-resource-note">
+            Contact CGSI if you need help reading or completing a document. Confirm the appropriate
+            submission method before sending identity or account records.
+          </p>
         </div>
       </section>
     </>

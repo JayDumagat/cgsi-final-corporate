@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
+import { PageHero } from "@/components/sections/page-hero";
 import { defaultSiteSettings } from "@/content/site-settings";
 
 export const metadata: Metadata = {
@@ -19,68 +21,46 @@ const resources = [
 export default function InvestorRelationsPage() {
   return (
     <>
-      <section className="ir-masthead">
-        <div className="site-container ir-masthead-grid">
-          <div>
-            <p className="interior-kicker">Investor relations</p>
-            <h1>Corporate information, clearly organized.</h1>
-          </div>
-          <p>
-            Access current company context, governance resources, disclosures, and official
-            market-participant references from one corporate information center.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Investor relations"
+        title="Corporate information, clearly organized."
+        description="Access current company context, governance resources, disclosures, and official market-participant references from one place."
+        compact
+      />
 
-      <section className="ir-profile">
-        <div className="site-container ir-profile-grid">
+      <section className="clean-proof">
+        <div className="site-container clean-proof-grid">
           <div>
-            <p>Corporate profile</p>
-            <strong>Caballes-Go Securities, Inc.</strong>
-            <span>Philippine equity brokerage · PSE Trading Participant</span>
-          </div>
-          <div>
-            <dl>
-              <div><dt>Corporate name adopted</dt><dd>November 2024</dd></div>
-              <div><dt>Trading operations commenced</dt><dd>April 2025</dd></div>
-              <div><dt>Office</dt><dd>Ortigas Center, Pasig City</dd></div>
-            </dl>
-            <a href={defaultSiteSettings.pseParticipantUrl} target="_blank" rel="noreferrer">
-              View official PSE participant record ↗
-              <span className="sr-only"> (opens in a new tab)</span>
+            <p className="clean-eyebrow">Corporate profile</p>
+            <h2>Caballes-Go Securities, Inc.</h2>
+            <p>Philippine equity brokerage and PSE Trading Participant based in Ortigas Center, Pasig City.</p>
+            <a href={defaultSiteSettings.pseParticipantUrl} target="_blank" rel="noreferrer" className="clean-text-link">
+              Official PSE participant record
+              <ArrowUpRight size={15} aria-hidden="true" />
             </a>
           </div>
+          <dl className="clean-proof-list">
+            <div><dt>Corporate name adopted</dt><dd>November 2024</dd></div>
+            <div><dt>Trading operations commenced</dt><dd>April 2025</dd></div>
+            <div><dt>Office</dt><dd>Ortigas Center, Pasig City</dd></div>
+          </dl>
         </div>
       </section>
 
-      <section className="ir-resources">
+      <section className="clean-directory">
         <div className="site-container">
-          <div className="ir-resources-heading">
-            <p className="section-label">Corporate resources</p>
-            <h2>Documents and information by purpose.</h2>
+          <div className="clean-section-heading">
+            <p className="clean-eyebrow">Corporate resources</p>
+            <h2>Information by purpose.</h2>
           </div>
-          <div className="ir-resource-grid">
-            {resources.map(([title, text, href], index) => (
+          <div className="clean-directory-list">
+            {resources.map(([title,text,href],index)=>(
               <Link href={href} key={href}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <em>View resource →</em>
+                <span>{String(index+1).padStart(2,"0")}</span>
+                <div><small>Corporate information</small><h3>{title}</h3><p>{text}</p></div>
+                <ArrowRight size={18} aria-hidden="true" />
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="ir-contact">
-        <div className="site-container">
-          <div>
-            <p className="section-label section-label-on-dark">Corporate enquiries</p>
-            <h2>Need a corporate record or clarification?</h2>
-          </div>
-          <div>
-            <p>Contact CGSI and identify the information or reporting period you need.</p>
-            <a href={`mailto:${defaultSiteSettings.email}`}>{defaultSiteSettings.email}</a>
           </div>
         </div>
       </section>
