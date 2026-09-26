@@ -1,6 +1,3 @@
-// Central navigation model. The `variant` field intentionally gives each
-// desktop mega menu its own information hierarchy instead of forcing every
-// business area into the same repeated grid.
 export type NavigationLink = {
   label: string;
   href: string;
@@ -34,50 +31,30 @@ export const megaMenus: MegaMenu[] = [
     label: "Clients",
     variant: "audiences",
     overviewHref: "/clients",
-    overviewLabel: "Explore clients",
+    overviewLabel: "See all client options",
     featured: {
-      eyebrow: "Client relationships",
-      title: "A brokerage relationship shaped around how you invest.",
+      eyebrow: "Choose your path",
+      title: "Start with the kind of support you need.",
       description:
-        "Different responsibilities, time horizons, and operating needs call for different service conversations.",
+        "Different investors need different levels of explanation, access, and service.",
       href: "/clients",
       image: "/images/editorial/advisor-clients.jpg",
       imageAlt: "An adviser reviewing financial documents with clients",
     },
     groups: [
       {
-        heading: "Private clients",
+        heading: "Individuals",
         links: [
-          {
-            label: "Individuals & families",
-            href: "/clients/individuals-families",
-            description: "Personal portfolios considered alongside family priorities.",
-          },
-          {
-            label: "OFWs & seafarers",
-            href: "/clients/ofws-seafarers",
-            description: "Account support across distance, schedules, and time zones.",
-          },
-          {
-            label: "New investors",
-            href: "/clients/new-investors",
-            description: "A measured entry into Philippine equities.",
-          },
+          { label: "Individuals & families", href: "/clients/individuals-families" },
+          { label: "OFWs & seafarers", href: "/clients/ofws-seafarers" },
+          { label: "New investors", href: "/clients/new-investors" },
         ],
       },
       {
-        heading: "Professional clients",
+        heading: "Organizations",
         links: [
-          {
-            label: "Institutions & corporations",
-            href: "/clients/institutions",
-            description: "Execution and post-trade coordination for defined mandates.",
-          },
-          {
-            label: "Discuss a mandate",
-            href: "/contact",
-            description: "Start with the requirements and decision structure.",
-          },
+          { label: "Institutions & corporations", href: "/clients/institutions" },
+          { label: "Contact institutional services", href: "/contact" },
         ],
       },
     ],
@@ -87,61 +64,31 @@ export const megaMenus: MegaMenu[] = [
     label: "Services",
     variant: "capabilities",
     overviewHref: "/services",
-    overviewLabel: "Explore all services",
+    overviewLabel: "View all services",
     featured: {
-      eyebrow: "Connected brokerage",
-      title: "From market context to post-trade administration.",
+      eyebrow: "Brokerage services",
+      title: "Research, execution, and post-trade support.",
       description:
-        "The service model connects execution, research, settlement, and account support without hiding who owns the next step.",
+        "Explore the services CGSI provides before, during, and after a trade.",
       href: "/services",
       image: "/images/editorial/trading-research.jpg",
       imageAlt: "A market professional reviewing data across trading screens",
     },
     groups: [
       {
-        heading: "Trading & intelligence",
+        heading: "Market access",
         links: [
-          {
-            label: "Broker-assisted trading",
-            href: "/services/broker-assisted-trading",
-            description: "A direct human point of contact for instructions and orders.",
-            meta: "01",
-          },
-          {
-            label: "Advisory & execution",
-            href: "/services/advisory-execution",
-            description: "Market context paired with disciplined order handling.",
-            meta: "02",
-          },
-          {
-            label: "Research & market intelligence",
-            href: "/services/research",
-            description: "Official sources, company disclosures, and decision context.",
-            meta: "03",
-          },
+          { label: "Broker-assisted trading", href: "/services/broker-assisted-trading" },
+          { label: "Advisory & execution", href: "/services/advisory-execution" },
+          { label: "Direct Market Access", href: "/services/direct-market-access" },
         ],
       },
       {
-        heading: "Operations & access",
+        heading: "Research & operations",
         links: [
-          {
-            label: "Settlement & custody",
-            href: "/services/settlement-custody",
-            description: "Post-trade coordination, records, and account administration.",
-            meta: "04",
-          },
-          {
-            label: "Direct Market Access",
-            href: "/services/direct-market-access",
-            description: "Professional order access with defined controls and support.",
-            meta: "05",
-          },
-          {
-            label: "PERA",
-            href: "/services/pera",
-            description: "A dedicated pathway for long-term retirement investing.",
-            meta: "06",
-          },
+          { label: "Research & market intelligence", href: "/services/research" },
+          { label: "Settlement & custody", href: "/services/settlement-custody" },
+          { label: "PERA", href: "/services/pera" },
         ],
       },
     ],
@@ -151,55 +98,31 @@ export const megaMenus: MegaMenu[] = [
     label: "Insights",
     variant: "editorial",
     overviewHref: "/insights",
-    overviewLabel: "Explore insights",
+    overviewLabel: "Browse all insights",
     featured: {
-      eyebrow: "Featured guide",
+      eyebrow: "Investor guide",
       title: "How to read PSE disclosures with purpose.",
       description:
-        "A practical guide to separating material company information from market noise.",
+        "Learn what to look for when reviewing company disclosures and exchange notices.",
       href: "/insights/reading-pse-disclosures",
       image: "/images/editorial/market-office.jpg",
       imageAlt: "Market information displayed on a professional workstation",
     },
     groups: [
       {
-        heading: "Research & analysis",
+        heading: "Research",
         links: [
-          {
-            label: "Market notes",
-            href: "/insights/market-notes",
-            description: "Dated market observations and analyst context.",
-          },
-          {
-            label: "Research library",
-            href: "/insights/library",
-            description: "Search reports, commentary, and source-based publications.",
-          },
-          {
-            label: "Research standards",
-            href: "/insights#research-standards",
-            description: "How CGSI separates evidence, interpretation, and uncertainty.",
-          },
+          { label: "Market notes", href: "/insights/market-notes" },
+          { label: "Research library", href: "/insights/library" },
+          { label: "Research standards", href: "/insights#research-standards" },
         ],
       },
       {
-        heading: "Markets & learning",
+        heading: "Learn & verify",
         links: [
-          {
-            label: "Investor guides",
-            href: "/insights/guides",
-            description: "Structured learning paths for practical investor decisions.",
-          },
-          {
-            label: "Market news",
-            href: "/market-news",
-            description: "Editorial coverage of relevant Philippine market developments.",
-          },
-          {
-            label: "Market announcements",
-            href: "/market-announcements",
-            description: "Exchange, trading, and market-operation notices.",
-          },
+          { label: "Investor guides", href: "/insights/guides" },
+          { label: "Market news", href: "/market-news" },
+          { label: "Market announcements", href: "/market-announcements" },
         ],
       },
     ],
@@ -209,49 +132,30 @@ export const megaMenus: MegaMenu[] = [
     label: "Resources",
     variant: "tools",
     overviewHref: "/tools",
-    overviewLabel: "Explore tools & resources",
+    overviewLabel: "View tools & resources",
     featured: {
-      eyebrow: "Available now",
-      title: "Estimate a trade before placing it.",
+      eyebrow: "Investor tools",
+      title: "Estimate a trade before you place it.",
       description:
-        "Use the investment calculator to organize capital, price, and estimated position size before speaking with CGSI.",
+        "Use the calculator to estimate position size and expected transaction costs.",
       href: "/tools/calculators",
       image: "/images/editorial/market-office.jpg",
       imageAlt: "Market information displayed on a professional workstation",
     },
     groups: [
       {
-        heading: "Plan & calculate",
+        heading: "Available",
         links: [
-          {
-            label: "Investment calculators",
-            href: "/tools/calculators",
-            description: "Explore position size, cost, and long-term contribution scenarios.",
-            meta: "Available",
-          },
-          {
-            label: "Portfolio planning",
-            href: "/tools/portfolio",
-            description: "A future workspace for allocation and portfolio review.",
-            meta: "Planned",
-          },
+          { label: "Investment calculators", href: "/tools/calculators" },
+          { label: "Account forms", href: "/resources" },
         ],
       },
       {
-        heading: "Discover & monitor",
+        heading: "Investor workspace",
         links: [
-          {
-            label: "Stock screener",
-            href: "/tools/stock-screener",
-            description: "A future research workflow for defined screening criteria.",
-            meta: "Planned",
-          },
-          {
-            label: "Watchlist",
-            href: "/tools/watchlist",
-            description: "A future authenticated space for securities you follow.",
-            meta: "Planned",
-          },
+          { label: "Portfolio planning", href: "/tools/portfolio" },
+          { label: "Stock screener", href: "/tools/stock-screener" },
+          { label: "Watchlist", href: "/tools/watchlist" },
         ],
       },
     ],
@@ -263,58 +167,30 @@ export const megaMenus: MegaMenu[] = [
     overviewHref: "/about",
     overviewLabel: "About CGSI",
     featured: {
-      eyebrow: "The firm",
-      title: "A modern brokerage built around accountable service.",
+      eyebrow: "Caballes-Go Securities",
+      title: "Licensed Philippine broker-dealer and PSE Trading Participant.",
       description:
-        "Learn about CGSI’s corporate milestones, operating principles, and role in the Philippine equity market.",
+        "Company information, leadership, governance, and regulatory resources.",
       href: "/about",
       image: "/images/editorial/governance-building.jpg",
-      imageAlt: "A substantial modern office building at dusk",
+      imageAlt: "A modern office building at dusk",
     },
     groups: [
       {
-        heading: "Company",
+        heading: "The firm",
         links: [
-          {
-            label: "Company profile",
-            href: "/about",
-            description: "Purpose, recent history, and operating principles.",
-          },
-          {
-            label: "Leadership & team",
-            href: "/about/team",
-            description: "Board, leadership, and the functions behind client service.",
-          },
-          {
-            label: "Careers",
-            href: "/careers",
-            description: "Build your career in the Philippine capital market.",
-          },
-          {
-            label: "Pressroom",
-            href: "/about/pressroom",
-            description: "Company facts, corporate releases, and media enquiries.",
-          },
+          { label: "Company profile", href: "/about" },
+          { label: "Leadership & team", href: "/about/team" },
+          { label: "Pressroom", href: "/about/pressroom" },
+          { label: "Careers", href: "/careers" },
         ],
       },
       {
-        heading: "Standards",
+        heading: "Governance",
         links: [
-          {
-            label: "Governance & oversight",
-            href: "/governance",
-            description: "Market conduct, controls, and regulatory context.",
-          },
-          {
-            label: "Risk management",
-            href: "/governance/risk-management",
-            description: "How financial and operational risks are considered.",
-          },
-          {
-            label: "Disclosures & compliance",
-            href: "/disclosures",
-            description: "Important legal, regulatory, and risk information.",
-          },
+          { label: "Governance & oversight", href: "/governance" },
+          { label: "Risk management", href: "/governance/risk-management" },
+          { label: "Disclosures & compliance", href: "/disclosures" },
         ],
       },
     ],
