@@ -1,81 +1,77 @@
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 import { SiteLogo } from "@/components/layout/site-logo";
 import type { PublicSiteSettings } from "@/content/site-settings";
 
-const groups = [
-  {
-    heading: "Explore",
-    links: [
-      ["Clients", "/clients"],
-      ["Services", "/services"],
-      ["Insights", "/insights"],
-      ["Tools & resources", "/tools"],
-      ["About CGSI", "/about"],
-    ],
-  },
-  {
-    heading: "Client support",
-    links: [
-      ["Open an account", "/open-account"],
-      ["Forms", "/resources"],
-      ["Help center", "/help"],
-      ["Contact", "/contact"],
-      ["Disclosures", "/disclosures"],
-    ],
-  },
+const primary = [
+  ["Clients", "/clients"],
+  ["Services", "/services"],
+  ["Insights", "/insights"],
+  ["Resources", "/tools"],
+  ["Company", "/about"],
+] as const;
+
+const support = [
+  ["Open an account", "/open-account"],
+  ["Account forms", "/resources"],
+  ["Help", "/help"],
+  ["Contact", "/contact"],
 ] as const;
 
 export function SiteFooter({ settings }: { settings: PublicSiteSettings }) {
   return (
-    <footer className="airy-site-footer">
-      <div className="site-container airy-footer-grid">
-        <div className="airy-footer-brand">
+    <footer className="rl-footer">
+      <div className="site-container rl-footer-top">
+        <div className="rl-footer-brand">
           <SiteLogo inverse />
           <p>
-            Philippine equity brokerage for individuals, families, corporations, and institutions.
+            Licensed Philippine broker-dealer providing equity market access, research,
+            execution, and post-trade support.
           </p>
-          <a href={settings.clientLoginUrl} target="_blank" rel="noreferrer">
-            Client login
-            <ExternalLink size={14} aria-hidden="true" />
-          </a>
         </div>
 
-        {groups.map((group) => (
-          <nav key={group.heading} aria-label={group.heading}>
-            <p className="airy-footer-heading">{group.heading}</p>
-            {group.links.map(([label, href]) => (
-              <Link href={href} key={href}>
-                {label}
-              </Link>
-            ))}
-          </nav>
-        ))}
+        <nav aria-label="Explore CGSI">
+          <p>Explore</p>
+          {primary.map(([label, href]) => (
+            <Link href={href} key={href}>{label}</Link>
+          ))}
+        </nav>
 
-        <div className="airy-footer-contact">
-          <p className="airy-footer-heading">Caballes-Go Securities, Inc.</p>
-          <p>{settings.officeAddress}</p>
+        <nav aria-label="Client support">
+          <p>Client support</p>
+          {support.map(([label, href]) => (
+            <Link href={href} key={href}>{label}</Link>
+          ))}
+          <a href={settings.clientLoginUrl} target="_blank" rel="noreferrer">
+            Client login
+            <ArrowUpRight size={13} aria-hidden="true" />
+          </a>
+        </nav>
+
+        <div className="rl-footer-contact">
+          <p>Contact</p>
+          <address>{settings.officeAddress}</address>
           <a href={`tel:${settings.telephone.replace(/\s/g, "")}`}>{settings.telephone}</a>
           <a href={`mailto:${settings.email}`}>{settings.email}</a>
           <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer">
             PSE participant record
-            <ExternalLink size={13} aria-hidden="true" />
+            <ArrowUpRight size={13} aria-hidden="true" />
           </a>
         </div>
       </div>
 
-      <div className="site-container airy-footer-bottom">
+      <div className="site-container rl-footer-bottom">
         <p>
-          Securities investments involve risk, including possible loss of principal. Website
-          content is general information and is not personalized investment advice.
+          Investing in securities involves risk, including possible loss of principal.
+          Information on this website is general in nature and is not personalized investment advice.
         </p>
-        <div>
+        <nav aria-label="Legal">
           <Link href="/privacy">Privacy</Link>
           <Link href="/disclosures">Disclosures</Link>
           <Link href="/accessibility">Accessibility</Link>
-          <span>© {new Date().getFullYear()} CGSI</span>
-        </div>
+          <span>© {new Date().getFullYear()} Caballes-Go Securities, Inc.</span>
+        </nav>
       </div>
     </footer>
   );
