@@ -31,10 +31,10 @@ export type MegaMenu = {
 export const megaMenus: MegaMenu[] = [
   {
     id: "clients",
-    label: "Who we serve",
+    label: "Clients",
     variant: "audiences",
     overviewHref: "/clients",
-    overviewLabel: "See every client pathway",
+    overviewLabel: "Explore clients",
     featured: {
       eyebrow: "Client relationships",
       title: "A brokerage relationship shaped around how you invest.",
@@ -84,10 +84,10 @@ export const megaMenus: MegaMenu[] = [
   },
   {
     id: "services",
-    label: "Expertise",
+    label: "Services",
     variant: "capabilities",
     overviewHref: "/services",
-    overviewLabel: "Explore our expertise",
+    overviewLabel: "Explore all services",
     featured: {
       eyebrow: "Connected brokerage",
       title: "From market context to post-trade administration.",
@@ -148,10 +148,10 @@ export const megaMenus: MegaMenu[] = [
   },
   {
     id: "insights",
-    label: "Research & insights",
+    label: "Insights",
     variant: "editorial",
     overviewHref: "/insights",
-    overviewLabel: "Visit the research desk",
+    overviewLabel: "Explore insights",
     featured: {
       eyebrow: "Featured guide",
       title: "How to read PSE disclosures with purpose.",
@@ -206,10 +206,10 @@ export const megaMenus: MegaMenu[] = [
   },
   {
     id: "tools",
-    label: "Tools",
+    label: "Resources",
     variant: "tools",
     overviewHref: "/tools",
-    overviewLabel: "Explore investor tools",
+    overviewLabel: "Explore tools & resources",
     featured: {
       eyebrow: "Available now",
       title: "Estimate a trade before placing it.",
@@ -258,10 +258,10 @@ export const megaMenus: MegaMenu[] = [
   },
   {
     id: "about",
-    label: "About CGSI",
+    label: "Company",
     variant: "company",
     overviewHref: "/about",
-    overviewLabel: "Discover the firm",
+    overviewLabel: "About CGSI",
     featured: {
       eyebrow: "The firm",
       title: "A modern brokerage built around accountable service.",
