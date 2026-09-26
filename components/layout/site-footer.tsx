@@ -1,61 +1,28 @@
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 
 import { SiteLogo } from "@/components/layout/site-logo";
 import type { PublicSiteSettings } from "@/content/site-settings";
 
-const footerGroups = [
+const groups = [
   {
-    heading: "Expertise",
+    heading: "Explore",
     links: [
-      ["Broker-assisted trading", "/services/broker-assisted-trading"],
-      ["Advisory & execution", "/services/advisory-execution"],
-      ["Research & intelligence", "/services/research"],
-      ["Direct Market Access", "/services/direct-market-access"],
-      ["PERA", "/services/pera"],
-      ["Settlement & custody", "/services/settlement-custody"],
-    ],
-  },
-  {
-    heading: "Research",
-    links: [
-      ["Research & insights", "/insights"],
-      ["Market notes", "/insights/market-notes"],
-      ["Investor guides", "/insights/guides"],
-      ["Research library", "/insights/library"],
-      ["Market news", "/market-news"],
-      ["Market announcements", "/market-announcements"],
-    ],
-  },
-  {
-    heading: "Tools",
-    links: [
-      ["Investor tools", "/tools"],
-      ["Investment calculators", "/tools/calculators"],
-      ["Stock screener", "/tools/stock-screener"],
-      ["Watchlist", "/tools/watchlist"],
-      ["Portfolio workspace", "/tools/portfolio"],
-    ],
-  },
-  {
-    heading: "The firm",
-    links: [
+      ["Clients", "/clients"],
+      ["Services", "/services"],
+      ["Insights", "/insights"],
+      ["Tools & resources", "/tools"],
       ["About CGSI", "/about"],
-      ["Leadership & team", "/about/team"],
-      ["Governance & oversight", "/governance"],
-      ["Investor relations", "/investor-relations"],
-      ["Pressroom", "/about/pressroom"],
-      ["Careers", "/careers"],
     ],
   },
   {
     heading: "Client support",
     links: [
       ["Open an account", "/open-account"],
-      ["Account forms", "/resources"],
+      ["Forms", "/resources"],
       ["Help center", "/help"],
-      ["Contact CGSI", "/contact"],
-      ["Disclosures & compliance", "/disclosures"],
-      ["Accessibility", "/accessibility"],
+      ["Contact", "/contact"],
+      ["Disclosures", "/disclosures"],
     ],
   },
 ] as const;
@@ -63,70 +30,50 @@ const footerGroups = [
 export function SiteFooter({ settings }: { settings: PublicSiteSettings }) {
   return (
     <footer className="site-footer">
-      <div className="site-container footer-primary">
-        <div className="footer-brand">
+      <div className="site-container clean-footer-grid">
+        <div className="clean-footer-brand">
           <SiteLogo inverse />
           <p>
-            Philippine equity brokerage for individual and institutional clients seeking
-            informed decisions, disciplined execution, and accountable service.
+            Philippine equity brokerage for individuals, families, corporations, and institutions.
           </p>
-          <a
-            href={settings.clientLoginUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="footer-portal"
-          >
-            Secure client portal <span aria-hidden="true">↗</span>
-            <span className="sr-only"> (opens in a new tab)</span>
+          <a href={settings.clientLoginUrl} target="_blank" rel="noreferrer">
+            Client login
+            <ExternalLink size={14} aria-hidden="true" />
           </a>
         </div>
 
-        <div className="footer-directory">
-          {footerGroups.map((group) => (
-            <nav key={group.heading} aria-label={`${group.heading} links`}>
-              <p className="footer-heading">{group.heading}</p>
-              <div>
-                {group.links.map(([label, href]) => (
-                  <Link key={href} href={href} className="footer-link">
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            </nav>
-          ))}
+        {groups.map((group) => (
+          <nav key={group.heading} aria-label={group.heading}>
+            <p className="clean-footer-heading">{group.heading}</p>
+            {group.links.map(([label, href]) => (
+              <Link href={href} key={href}>
+                {label}
+              </Link>
+            ))}
+          </nav>
+        ))}
+
+        <div className="clean-footer-contact">
+          <p className="clean-footer-heading">Caballes-Go Securities, Inc.</p>
+          <p>{settings.officeAddress}</p>
+          <a href={`tel:${settings.telephone.replace(/\s/g, "")}`}>{settings.telephone}</a>
+          <a href={`mailto:${settings.email}`}>{settings.email}</a>
+          <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer">
+            PSE participant record
+            <ExternalLink size={13} aria-hidden="true" />
+          </a>
         </div>
       </div>
 
-      <div className="footer-contact">
-        <div className="site-container footer-contact-grid">
-          <div>
-            <p className="footer-meta-heading">{settings.companyName}</p>
-            <p>{settings.officeAddress}</p>
-          </div>
-          <div>
-            <p className="footer-meta-heading">Client support</p>
-            <a href={`tel:${settings.telephone.replace(/\s/g, "")}`}>{settings.telephone}</a>
-            <a href={`mailto:${settings.email}`}>{settings.email}</a>
-          </div>
-          <div>
-            <p className="footer-meta-heading">Official participant information</p>
-            <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer">
-              View the PSE participant record <span aria-hidden="true">↗</span>
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div className="site-container footer-legal">
+      <div className="site-container clean-footer-bottom">
         <p>
-          Securities investments involve risk, including possible loss of principal. Past
-          performance does not guarantee future results. Website content is general information,
-          not personalized investment advice or an offer to buy or sell any security.
+          Securities investments involve risk, including possible loss of principal. Website
+          content is general information and is not personalized investment advice.
         </p>
         <div>
           <Link href="/privacy">Privacy</Link>
           <Link href="/disclosures">Disclosures</Link>
+          <Link href="/accessibility">Accessibility</Link>
           <span>© {new Date().getFullYear()} CGSI</span>
         </div>
       </div>
