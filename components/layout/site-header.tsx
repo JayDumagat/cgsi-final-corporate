@@ -69,15 +69,6 @@ function MegaPanel({ menu }: { menu: MegaMenu }) {
             </section>
           ))}
         </div>
-
-        <NavigationMenu.Link asChild>
-          <Link href={menu.featured.href} className="clean-mega-feature">
-            <span>{menu.featured.eyebrow}</span>
-            <strong>{menu.featured.title}</strong>
-            <small>Explore this topic</small>
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-        </NavigationMenu.Link>
       </div>
     </div>
   );
