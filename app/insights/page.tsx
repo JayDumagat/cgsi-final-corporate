@@ -3,13 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { PageHero } from "@/components/sections/page-hero";
 import { getPublishedInsights } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Research & Insights",
+  title: "Insights",
   description:
-    "CGSI research, market notes, investor guides, and source-based publications for Philippine equity investors.",
+    "Browse CGSI market research, investor education, market notes, and official market information.",
 };
 
 function formatDate(value: string) {
@@ -28,91 +27,72 @@ export default async function InsightsPage() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Research & insights"
-        title="Evidence before urgency."
-        description="Read market context, build investing knowledge, and search source-based publications without having to sort through unnecessary noise."
-        image="/images/editorial/research-meeting.jpg"
-        imageAlt="Professionals reviewing market research together"
-      />
-
-      {featured ? (
-        <section className="clean-insights-feature">
-          <div className="site-container clean-insights-feature-grid">
-            <Link href={`/insights/${featured.slug}`} className="clean-insights-feature-image">
-              <Image
-                src="/images/editorial/trading-research.jpg"
-                alt="Financial market information displayed across professional screens"
-                fill
-                sizes="(min-width: 900px) 55vw, 100vw"
-                className="object-cover"
-              />
-            </Link>
-            <div>
-              <p className="clean-eyebrow">Latest publication</p>
-              <small>{featured.category} · {formatDate(featured.publishedAt)}</small>
-              <h2>{featured.title}</h2>
-              <p>{featured.excerpt}</p>
-              <Link href={`/insights/${featured.slug}`} className="clean-text-link">
-                Read the publication
-                <ArrowRight size={15} aria-hidden="true" />
-              </Link>
-            </div>
+      <section className="rl-editorial-hero" aria-labelledby="insights-title">
+        <div className="site-container">
+          <div className="rl-editorial-hero-copy">
+            <p className="rl-kicker">Insights</p>
+            <h1 id="insights-title">Research that tells you what changed—and when.</h1>
+            <p>
+              Browse dated market commentary, practical investor education, and source-based
+              publications without mixing analysis with official notices.
+            </p>
           </div>
-        </section>
-      ) : null}
 
-      <section className="clean-insights-index">
-        <div className="site-container clean-insights-index-grid">
+          {featured ? (
+            <Link href={`/insights/${featured.slug}`} className="rl-editorial-feature">
+              <figure>
+                <Image
+                  src="/images/editorial/trading-research.jpg"
+                  alt="Financial market information on professional trading screens"
+                  fill
+                  priority
+                  sizes="(min-width: 960px) 62vw, 100vw"
+                  className="object-cover"
+                />
+              </figure>
+              <div>
+                <span>{formatDate(featured.publishedAt)} · {featured.category}</span>
+                <h2>{featured.title}</h2>
+                <p>{featured.excerpt}</p>
+                <strong>Read publication <ArrowRight size={15} aria-hidden="true" /></strong>
+              </div>
+            </Link>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="rl-insight-paths" aria-labelledby="insight-paths-title">
+        <div className="site-container">
           <div>
-            <p className="clean-eyebrow">Research paths</p>
-            <h2>Choose the depth you need.</h2>
+            <p className="rl-kicker">Choose what you need</p>
+            <h2 id="insight-paths-title">Analysis, education, or official information.</h2>
           </div>
-
-          <nav aria-label="Research destinations">
-            <Link href="/insights/market-notes">
-              <span>Market notes</span>
-              <small>Dated market observations and context</small>
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
-            <Link href="/insights/guides">
-              <span>Investor guides</span>
-              <small>Plain-language investing education</small>
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
-            <Link href="/insights/library">
-              <span>Research library</span>
-              <small>Search the complete publication archive</small>
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
-            <Link href="/market-announcements">
-              <span>Market announcements</span>
-              <small>Official notices and market information</small>
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
+          <nav aria-label="Insight destinations">
+            <Link href="/insights/market-notes"><span>Market notes</span><small>Recent market context</small><ArrowUpRight size={15} aria-hidden="true" /></Link>
+            <Link href="/insights/guides"><span>Investor guides</span><small>Plain-language education</small><ArrowUpRight size={15} aria-hidden="true" /></Link>
+            <Link href="/insights/library"><span>Research library</span><small>Search all publications</small><ArrowUpRight size={15} aria-hidden="true" /></Link>
+            <Link href="/market-announcements"><span>Market announcements</span><small>Official notices and sources</small><ArrowUpRight size={15} aria-hidden="true" /></Link>
           </nav>
         </div>
       </section>
 
-      {latest.length ? (
-        <section className="clean-latest-list">
-          <div className="site-container">
-            <div className="clean-section-heading">
-              <p className="clean-eyebrow">Latest from CGSI</p>
-              <h2>Recent publications.</h2>
-            </div>
-            <div>
-              {latest.map((item) => (
-                <Link href={`/insights/${item.slug}`} key={item.slug}>
-                  <small>{item.category} · {formatDate(item.publishedAt)}</small>
-                  <h3>{item.title}</h3>
-                  <span>{item.readTime}</span>
-                </Link>
-              ))}
-            </div>
+      <section className="rl-publication-list" aria-labelledby="recent-publications-title">
+        <div className="site-container">
+          <div>
+            <p className="rl-kicker">Recent publications</p>
+            <h2 id="recent-publications-title">Latest from the research desk.</h2>
           </div>
-        </section>
-      ) : null}
+          <div>
+            {latest.map((item) => (
+              <Link href={`/insights/${item.slug}`} key={item.slug}>
+                <span>{formatDate(item.publishedAt)}</span>
+                <div><small>{item.category}</small><h3>{item.title}</h3></div>
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
