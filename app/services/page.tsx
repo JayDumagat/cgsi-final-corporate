@@ -5,71 +5,78 @@ import { ArrowRight } from "lucide-react";
 
 import { CtaBand } from "@/components/sections/cta-band";
 import { PageHero } from "@/components/sections/page-hero";
-import { serviceProfiles } from "@/content/profiles";
 
 export const metadata: Metadata = {
-  title: "Expertise",
+  title: "Brokerage Services",
   description:
-    "Explore CGSI brokerage services across trading, execution, research, market access, retirement investing, settlement, and custody.",
+    "CGSI services across research, execution, market access, settlement, custody, and retirement investing.",
 };
+
+const stages = [
+  {
+    number: "01",
+    title: "Understand",
+    text: "Research, market context, and a clear discussion of the order or mandate.",
+    links: [["Research & intelligence", "/services/research"], ["Advisory & execution", "/services/advisory-execution"]],
+  },
+  {
+    number: "02",
+    title: "Execute",
+    text: "Broker-assisted orders or approved professional market-access workflows.",
+    links: [["Broker-assisted trading", "/services/broker-assisted-trading"], ["Direct Market Access", "/services/direct-market-access"]],
+  },
+  {
+    number: "03",
+    title: "Settle & support",
+    text: "Post-trade coordination, custody, records, and ongoing account administration.",
+    links: [["Settlement & custody", "/services/settlement-custody"], ["PERA", "/services/pera"]],
+  },
+] as const;
 
 export default function ServicesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Expertise"
-        title="Professional support around the trade."
-        description="CGSI connects research, execution, market access, and post-trade operations so clients can work with a clearer service model."
+        eyebrow="Brokerage services"
+        title="Support before, during, and after the trade."
+        description="CGSI connects research, execution, market access, and post-trade work so the client experience does not stop when an order is filled."
         image="/images/editorial/trading-research.jpg"
-        imageAlt="A market professional reviewing financial information across trading screens"
+        imageAlt="A professional market workstation"
       />
 
-      <section className="clean-directory">
+      <section className="ref-service-flow" aria-labelledby="service-flow-title">
         <div className="site-container">
-          <div className="clean-section-heading clean-section-heading-wide">
-            <p className="clean-eyebrow">Services</p>
-            <h2>Use what you need. Go deeper when the mandate requires it.</h2>
+          <div className="ref-section-heading">
+            <p className="ref-kicker">How the work connects</p>
+            <h2 id="service-flow-title">Three stages. One brokerage relationship.</h2>
           </div>
-
-          <div className="clean-directory-list">
-            {serviceProfiles.map((profile, index) => (
-              <Link href={`/services/${profile.slug}`} key={profile.slug}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <div>
-                  <small>{profile.eyebrow}</small>
-                  <h3>{profile.title}</h3>
-                  <p>{profile.description}</p>
-                </div>
-                <ArrowRight size={18} aria-hidden="true" />
-              </Link>
+          <div className="ref-service-flow-grid">
+            {stages.map((stage) => (
+              <article key={stage.number}>
+                <span>{stage.number}</span>
+                <h3>{stage.title}</h3>
+                <p>{stage.text}</p>
+                <nav>
+                  {stage.links.map(([label, href]) => (
+                    <Link href={href} key={href}>{label}<ArrowRight size={13} /></Link>
+                  ))}
+                </nav>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="clean-feature-split is-reverse">
-        <div className="site-container clean-feature-split-grid">
-          <div className="clean-feature-split-image">
-            <Image
-              src="/images/editorial/operations-team.jpg"
-              alt="Operations professionals working together in an office"
-              fill
-              sizes="(min-width: 900px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+      <section className="ref-service-image-band">
+        <div className="site-container ref-service-image-band-grid">
+          <figure>
+            <Image src="/images/editorial/operations-team.jpg" alt="Operations professionals collaborating in an office" fill sizes="(min-width: 900px) 55vw, 100vw" className="object-cover" />
+          </figure>
           <div>
-            <p className="clean-eyebrow">Institutional requirements</p>
-            <h2>Professional mandates need operational clarity.</h2>
-            <p>
-              Corporate and institutional relationships may require defined authorities,
-              communication protocols, market-access controls, settlement coordination, and
-              reporting expectations.
-            </p>
-            <Link href="/clients/institutions" className="clean-primary-button">
-              Institutional client services
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
+            <p className="ref-kicker">For professional requirements</p>
+            <h2>Need a defined operating model?</h2>
+            <p>Institutional relationships can include communication protocols, approved authorities, market-access controls, settlement requirements, and reporting expectations.</p>
+            <Link href="/clients/institutions" className="ref-text-link">Institutional services <ArrowRight size={14} /></Link>
           </div>
         </div>
       </section>
