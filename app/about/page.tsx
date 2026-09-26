@@ -1,120 +1,110 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-
-import { CtaBand } from "@/components/sections/cta-band";
-import { PageHero } from "@/components/sections/page-hero";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About CGSI",
   description:
-    "Learn about Caballes-Go Securities, its purpose, operating principles, leadership, governance, and recent corporate history.",
+    "Company information, leadership, governance, and recent history of Caballes-Go Securities, Inc.",
 };
 
-const principles = [
-  ["Clarity", "Explain the decision, the process, and the risk in language clients can use."],
-  ["Accountability", "Keep ownership of communication, execution, settlement, and support visible."],
-  ["Discipline", "Operate with the controls and care expected in a regulated securities market."],
-  ["Adaptability", "Use modern systems and better digital experiences without losing human responsibility."],
+const facts = [
+  ["Market status", "Active PSE Trading Participant"],
+  ["License", "Broker-Dealer"],
+  ["Client service", "Retail & Institutional"],
+  ["Research", "Publications available"],
 ] as const;
 
 const history = [
-  ["Sep 2024", "Primary and secondary licenses were approved and issued to MVG Securities."],
-  ["Oct 2024", "The Philippine Stock Exchange accepted MVG Securities as a Trading Participant."],
-  ["Nov 2024", "The company adopted the Caballes-Go Securities, Inc. corporate name."],
-  ["Apr 2025", "CGSI commenced trading operations under its current identity."],
+  ["2024", "The company adopted the Caballes-Go Securities, Inc. corporate identity following its transition from MVG Securities."],
+  ["2025", "CGSI began trading operations under its current name and business direction."],
+  ["Today", "The firm serves retail and institutional clients in the Philippine equity market."],
 ] as const;
 
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="About CGSI"
-        title="A modern brokerage with institutional discipline."
-        description="Caballes-Go Securities serves retail, high-net-worth, corporate, and institutional clients in the Philippine equity market."
-        image="/images/editorial/governance-building.jpg"
-        imageAlt="A modern office building at dusk"
-      />
-
-      <section className="clean-about-statement">
-        <div className="site-container clean-about-statement-grid">
-          <p className="clean-eyebrow">Our point of view</p>
+      <section className="rl-about-hero" aria-labelledby="about-title">
+        <div className="site-container rl-about-hero-grid">
           <div>
-            <h2>Technology should make the relationship simpler—not less accountable.</h2>
+            <p className="rl-kicker">Company</p>
+            <h1 id="about-title">A Philippine broker-dealer built for a market that keeps changing.</h1>
             <p>
-              CGSI combines modern systems with direct human ownership of client communication,
-              execution, settlement, research, and support. The aim is a brokerage experience that
-              feels current without becoming impersonal.
+              Caballes-Go Securities, Inc. combines experienced market professionals, regulated
+              brokerage operations, and a willingness to improve how clients access information and service.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="clean-list-section">
-        <div className="site-container">
-          <div className="clean-section-heading">
-            <p className="clean-eyebrow">Operating principles</p>
-            <h2>Standards clients should be able to notice.</h2>
-          </div>
-          <div className="clean-list">
-            {principles.map(([title, text], index) => (
-              <article key={title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="clean-about-history">
-        <div className="site-container clean-about-history-grid">
-          <div className="clean-about-history-image">
+          <figure>
             <Image
-              src="/images/editorial/makati-dusk.jpg"
-              alt="Makati business district at dusk"
+              src="/images/editorial/governance-building.jpg"
+              alt="Modern office building at dusk"
               fill
-              sizes="(min-width: 900px) 44vw, 100vw"
+              priority
+              sizes="(min-width: 960px) 48vw, 100vw"
               className="object-cover"
             />
-          </div>
+          </figure>
+        </div>
+      </section>
+
+      <section className="rl-company-facts" aria-labelledby="facts-title">
+        <div className="site-container">
           <div>
-            <p className="clean-eyebrow">Recent corporate history</p>
-            <h2>The current CGSI chapter.</h2>
-            <div className="clean-timeline">
-              {history.map(([date, event]) => (
-                <div key={date}>
-                  <time>{date}</time>
-                  <p>{event}</p>
-                </div>
-              ))}
+            <p className="rl-kicker">Firm profile</p>
+            <h2 id="facts-title">The essentials, without the corporate filler.</h2>
+          </div>
+          <dl>
+            {facts.map(([term, value]) => (
+              <div key={term}><dt>{term}</dt><dd>{value}</dd></div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="rl-about-story" aria-labelledby="story-title">
+        <div className="site-container rl-about-story-grid">
+          <figure>
+            <Image
+              src="/images/editorial/cgsi-professionals.jpg"
+              alt="Financial professionals collaborating in an office"
+              fill
+              sizes="(min-width: 960px) 48vw, 100vw"
+              className="object-cover"
+            />
+          </figure>
+          <div>
+            <p className="rl-kicker">How CGSI works</p>
+            <h2 id="story-title">Modern tools are useful only when responsibility stays clear.</h2>
+            <p>
+              CGSI’s digital direction is meant to make research, account information, and client
+              service easier to reach while keeping brokerage responsibility with identifiable people and teams.
+            </p>
+            <div>
+              <Link href="/about/team">Leadership & team <ArrowRight size={15} aria-hidden="true" /></Link>
+              <Link href="/governance">Governance & oversight <ArrowRight size={15} aria-hidden="true" /></Link>
             </div>
-            <small>
-              Dates summarize recent corporate history and should be read alongside official
-              regulatory and exchange records.
-            </small>
           </div>
         </div>
       </section>
 
-      <section className="clean-about-links">
-        <div className="site-container clean-about-links-grid">
+      <section className="rl-history" aria-labelledby="history-title">
+        <div className="site-container">
           <div>
-            <p className="clean-eyebrow">Leadership</p>
-            <h3>Meet the people responsible for the firm.</h3>
-            <Link href="/about/team">Leadership & team <ArrowRight size={15} aria-hidden="true" /></Link>
+            <p className="rl-kicker">Recent history</p>
+            <h2 id="history-title">The current CGSI chapter.</h2>
           </div>
           <div>
-            <p className="clean-eyebrow">Governance</p>
-            <h3>Review oversight, controls, and risk management.</h3>
-            <Link href="/governance">Governance & oversight <ArrowRight size={15} aria-hidden="true" /></Link>
+            {history.map(([date, event]) => (
+              <article key={date}><time>{date}</time><p>{event}</p></article>
+            ))}
           </div>
+          <Link href="/about/pressroom">
+            Company facts & pressroom
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </Link>
         </div>
       </section>
-
-      <CtaBand />
     </>
   );
 }
