@@ -68,24 +68,22 @@ test("every original page and account resource survives the redesign", async () 
     assert.doesNotMatch(html, /NEXT_REDIRECT/, `${route} must remain a page`);
   }
 });
-test("mega menus, utility controls, theme switcher, and client actions remain", async () => {
+test("mega navigation, utility bar, and core client actions remain", async () => {
   const html = await htmlFor("/");
   for (const marker of [
-    "Who we serve",
-    "Expertise",
-    "Research &amp; insights",
-    "Tools",
-    "About CGSI",
+    "Clients",
+    "Services",
+    "Insights",
+    "Resources",
+    "Company",
     "Utility navigation",
-    "Choose site language",
-    "Client portal",
+    "Client login",
     "Open an account",
-    "Open navigation",
-    "Company announcement",
+    "Open menu",
   ])
     assert.ok(html.includes(marker), marker);
-  assert.match(html, /theme-toggle/);
-  assert.match(html, /Service categories/);
+  assert.match(html, /mega-panel/);
+  assert.match(html, /utility-bar/);
 });
 test("all rendered internal links have a generated destination and local images exist", async () => {
   const links = new Set();
