@@ -1,72 +1,60 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Building2,
+  ChartNoAxesColumnIncreasing,
+  CircleHelp,
+} from "lucide-react";
 
 import { CorporateHero } from "@/components/sections/corporate-hero";
 import { CtaBand } from "@/components/sections/cta-band";
-import { getPublishedInsights, getPublicSiteSettings } from "@/lib/content";
+import { getPublishedInsights } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Philippine Equity Brokerage",
-  description:
-    "Caballes-Go Securities provides Philippine equity market access, research, execution, and post-trade support for retail and institutional clients.",
-};
-
-const startingPoints = [
-  {
-    label: "New to investing",
-    title: "Build your understanding first.",
-    text: "Learn how Philippine equities work, what risk means, and how to prepare before opening an account.",
-    href: "/clients/new-investors",
-    link: "Start here",
-  },
-  {
-    label: "Individual investors",
-    title: "Invest around real-life priorities.",
-    text: "Explore a brokerage relationship designed around liquidity, long-term goals, and direct human support.",
-    href: "/clients/individuals-families",
-    link: "Explore private client support",
-  },
-  {
-    label: "Institutions & corporations",
-    title: "Local market access for professional mandates.",
-    text: "Review execution, research, settlement, and operating support for corporate and institutional requirements.",
-    href: "/clients/institutions",
-    link: "Explore institutional services",
-  },
-  {
-    label: "Existing clients",
-    title: "Find forms and support quickly.",
-    text: "Go directly to account resources, support information, and the secure client portal.",
-    href: "/resources",
-    link: "Client resources",
-  },
-] as const;
-
-const serviceRows = [
+const services = [
   {
     title: "Trading & execution",
-    text: "Broker-assisted trading, advisory, and professional execution support.",
+    text: "Broker-assisted execution and market access with a clear human point of contact.",
     href: "/services/broker-assisted-trading",
   },
   {
-    title: "Research & market intelligence",
-    text: "Market notes, issuer information, and decision-focused research.",
+    title: "Research & intelligence",
+    text: "Market notes, company disclosures, and investor context organized for better decisions.",
     href: "/services/research",
   },
   {
-    title: "Settlement & account support",
-    text: "Post-trade coordination, custody, records, and ongoing account administration.",
+    title: "Settlement & custody",
+    text: "Post-trade coordination, records, and account administration with defined ownership.",
     href: "/services/settlement-custody",
   },
 ] as const;
 
-const resourceLinks = [
-  ["Investor guides", "/insights/guides"],
-  ["Research library", "/insights/library"],
-  ["Market notes", "/insights/market-notes"],
-  ["Market announcements", "/market-announcements"],
+const pathways = [
+  {
+    icon: BookOpen,
+    title: "New to investing",
+    text: "Start with clear explanations of equities, risk, accounts, and how the market works.",
+    href: "/clients/new-investors",
+  },
+  {
+    icon: ChartNoAxesColumnIncreasing,
+    title: "Experienced investors",
+    text: "Go directly to research, execution services, tools, and market information.",
+    href: "/insights",
+  },
+  {
+    icon: Building2,
+    title: "Institutions & corporations",
+    text: "Explore professional market access, execution, custody, and mandate support.",
+    href: "/clients/institutions",
+  },
+  {
+    icon: CircleHelp,
+    title: "Existing clients",
+    text: "Find forms, account resources, help, and service channels quickly.",
+    href: "/resources",
+  },
 ] as const;
 
 function formatDate(value: string) {
@@ -79,219 +67,152 @@ function formatDate(value: string) {
 }
 
 export default async function Home() {
-  const [insights, settings] = await Promise.all([
-    getPublishedInsights(),
-    getPublicSiteSettings(),
-  ]);
-
+  const insights = await getPublishedInsights();
   const featured = insights[0];
-  const supporting = insights.slice(1, 3);
+  const secondary = insights.slice(1, 3);
 
   return (
     <>
       <CorporateHero />
 
-      <section className="clean-start" aria-labelledby="start-title">
-        <div className="site-container">
-          <div className="clean-section-heading clean-section-heading-wide">
-            <p className="clean-eyebrow">Start where you are</p>
-            <h2 id="start-title">A clearer path into the market.</h2>
-            <p>
-              The site is organized around what you need to do—not around how much financial
-              terminology you already know.
-            </p>
+      <section className="airy-intro" aria-labelledby="airy-intro-title">
+        <div className="site-container airy-intro-grid">
+          <div>
+            <p className="airy-eyebrow">A traditional broker, moving forward</p>
+            <h2 id="airy-intro-title">Professional where it matters. Approachable where it helps.</h2>
           </div>
-
-          <div className="clean-start-list">
-            {startingPoints.map((item, index) => (
-              <Link href={item.href} key={item.href}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <div>
-                  <small>{item.label}</small>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </div>
-                <strong>
-                  {item.link}
-                  <ArrowRight size={16} aria-hidden="true" />
-                </strong>
-              </Link>
-            ))}
+          <div className="airy-intro-copy">
+            <p>
+              CGSI combines the discipline expected from a broker-dealer with a more useful digital
+              experience: clear explanations, accessible research, practical resources, and direct
+              routes to the people and services clients need.
+            </p>
+            <Link href="/about">
+              Learn about CGSI
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="clean-services-home" aria-labelledby="services-title">
-        <div className="site-container clean-services-home-grid">
-          <div className="clean-services-home-intro">
-            <p className="clean-eyebrow">What we do</p>
-            <h2 id="services-title">Support around the investment decision.</h2>
-            <p>
-              CGSI combines market access, research, execution, and post-trade support in one
-              professional brokerage relationship.
-            </p>
-            <Link href="/services" className="clean-text-link">
-              View all expertise
-              <ArrowUpRight size={15} aria-hidden="true" />
+      <section className="airy-services" aria-labelledby="airy-services-title">
+        <div className="site-container airy-services-grid">
+          <div className="airy-services-heading">
+            <p className="airy-eyebrow">What we do</p>
+            <h2 id="airy-services-title">Market access supported by research and accountable service.</h2>
+            <Link href="/services">
+              View all services
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
 
-          <div className="clean-service-rows">
-            {serviceRows.map((service, index) => (
+          <div className="airy-service-list">
+            {services.map((service, index) => (
               <Link href={service.href} key={service.href}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <h3>{service.title}</h3>
                   <p>{service.text}</p>
                 </div>
-                <ArrowRight size={18} aria-hidden="true" />
+                <ArrowRight aria-hidden="true" />
               </Link>
             ))}
           </div>
         </div>
-
-        <div className="site-container clean-wide-image">
-          <Image
-            src="/images/editorial/cgsi-professionals.jpg"
-            alt="Financial professionals reviewing information together in an office"
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
       </section>
 
-      <section className="clean-research-home" aria-labelledby="research-title">
-        <div className="site-container">
-          <div className="clean-section-heading clean-research-heading">
-            <div>
-              <p className="clean-eyebrow">Research & learning</p>
-              <h2 id="research-title">Make the market easier to understand.</h2>
-            </div>
+      <section className="airy-research" aria-labelledby="airy-research-title">
+        <div className="site-container airy-research-grid">
+          <div className="airy-research-media">
+            <Image
+              src="/images/editorial/research-meeting.jpg"
+              alt="Professionals discussing market research"
+              fill
+              sizes="(min-width: 960px) 48vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div className="airy-research-copy">
+            <p className="airy-eyebrow">Research & community</p>
+            <h2 id="airy-research-title">Useful market knowledge should be easy to find.</h2>
             <p>
-              Research, investor education, and official market information should help people
-              make better-informed decisions—not add more noise.
+              Research, investor education, market notices, and practical tools are part of the
+              relationship—not extras hidden several levels deep.
             </p>
-          </div>
 
-          {featured ? (
-            <div className="clean-research-grid">
-              <Link href={`/insights/${featured.slug}`} className="clean-research-feature">
-                <span className="clean-research-image">
-                  <Image
-                    src="/images/editorial/trading-research.jpg"
-                    alt="Financial market information on professional trading screens"
-                    fill
-                    sizes="(min-width: 900px) 58vw, 100vw"
-                    className="object-cover"
-                  />
-                </span>
-                <span className="clean-research-copy">
-                  <small>{featured.category} · {formatDate(featured.publishedAt)}</small>
-                  <h3>{featured.title}</h3>
-                  <p>{featured.excerpt}</p>
-                  <strong>Read the insight <ArrowRight size={15} aria-hidden="true" /></strong>
-                </span>
+            {featured ? (
+              <Link href={`/insights/${featured.slug}`} className="airy-featured-insight">
+                <span>{formatDate(featured.publishedAt)}</span>
+                <strong>{featured.title}</strong>
+                <small>{featured.excerpt}</small>
+                <em>
+                  Read insight
+                  <ArrowRight size={15} aria-hidden="true" />
+                </em>
               </Link>
+            ) : null}
 
-              <aside className="clean-research-side">
-                {supporting.map((item) => (
-                  <Link href={`/insights/${item.slug}`} key={item.slug}>
-                    <small>{item.category} · {formatDate(item.publishedAt)}</small>
-                    <h3>{item.title}</h3>
-                    <span>{item.readTime}</span>
-                  </Link>
-                ))}
-
-                <nav aria-label="Research resources">
-                  {resourceLinks.map(([label, href]) => (
-                    <Link href={href} key={href}>
-                      {label}
-                      <ArrowUpRight size={14} aria-hidden="true" />
-                    </Link>
-                  ))}
-                </nav>
-              </aside>
+            <div className="airy-research-links">
+              <Link href="/insights/guides">Investor guides</Link>
+              <Link href="/market-announcements">Market announcements</Link>
+              <Link href="/tools">Investor tools</Link>
             </div>
-          ) : null}
+          </div>
         </div>
       </section>
 
-      <section className="clean-audience-home" aria-labelledby="audience-title">
+      <section className="airy-pathways" aria-labelledby="airy-pathways-title">
         <div className="site-container">
-          <div className="clean-section-heading clean-section-heading-wide">
-            <p className="clean-eyebrow">For different kinds of investors</p>
-            <h2 id="audience-title">Personal when it should be. Institutional when it needs to be.</h2>
+          <div className="airy-pathways-heading">
+            <p className="airy-eyebrow">Find what matters to you</p>
+            <h2 id="airy-pathways-title">Different investors should not have to navigate the same way.</h2>
           </div>
 
-          <div className="clean-audience-split">
-            <article>
-              <p>Private clients</p>
-              <h3>Direct support for individual investors and families.</h3>
-              <span>
-                From first-time investors to experienced private clients, the relationship starts
-                with context, not a product list.
-              </span>
-              <Link href="/clients">
-                Explore private client pathways
-                <ArrowRight size={15} aria-hidden="true" />
-              </Link>
-            </article>
-            <article>
-              <p>Professional clients</p>
-              <h3>Execution and operating support for institutions and corporations.</h3>
-              <span>
-                Clear authorities, communication, execution, settlement, and reporting around
-                defined professional requirements.
-              </span>
-              <Link href="/clients/institutions">
-                Institutional services
-                <ArrowRight size={15} aria-hidden="true" />
-              </Link>
-            </article>
+          <div className="airy-pathway-grid">
+            {pathways.map((pathway) => {
+              const Icon = pathway.icon;
+              return (
+                <Link href={pathway.href} key={pathway.href}>
+                  <Icon aria-hidden="true" />
+                  <h3>{pathway.title}</h3>
+                  <p>{pathway.text}</p>
+                  <span>
+                    Explore
+                    <ArrowRight size={15} aria-hidden="true" />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="clean-proof" aria-labelledby="proof-title">
-        <div className="site-container clean-proof-grid">
-          <div>
-            <p className="clean-eyebrow">Institutional foundation</p>
-            <h2 id="proof-title">Modern service, grounded in market discipline.</h2>
+      <section className="airy-latest" aria-labelledby="airy-latest-title">
+        <div className="site-container airy-latest-grid">
+          <div className="airy-latest-heading">
+            <p className="airy-eyebrow">Latest from CGSI</p>
+            <h2 id="airy-latest-title">Research that respects your time.</h2>
             <p>
-              CGSI is an active corporate Trading Participant of the Philippine Stock Exchange
-              serving retail and institutional clients.
+              Dated, scannable, and written to help readers understand what changed and why it
+              matters.
             </p>
-            <div className="clean-proof-actions">
-              <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer" className="clean-text-link">
-                PSE participant record
-                <ArrowUpRight size={15} aria-hidden="true" />
-              </a>
-              <Link href="/about" className="clean-text-link">
-                About CGSI
-                <ArrowRight size={15} aria-hidden="true" />
-              </Link>
-            </div>
+            <Link href="/insights">
+              Browse all insights
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
           </div>
 
-          <dl className="clean-proof-list">
-            <div>
-              <dt>PSE status</dt>
-              <dd>Active Trading Participant</dd>
-            </div>
-            <div>
-              <dt>License type</dt>
-              <dd>Broker-Dealer</dd>
-            </div>
-            <div>
-              <dt>Client service</dt>
-              <dd>Retail & Institutional</dd>
-            </div>
-            <div>
-              <dt>Research</dt>
-              <dd>Publications available</dd>
-            </div>
-          </dl>
+          <div className="airy-latest-list">
+            {secondary.map((insight) => (
+              <Link href={`/insights/${insight.slug}`} key={insight.slug}>
+                <span>{formatDate(insight.publishedAt)}</span>
+                <h3>{insight.title}</h3>
+                <p>{insight.excerpt}</p>
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
