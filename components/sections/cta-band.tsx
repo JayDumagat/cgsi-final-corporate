@@ -1,26 +1,24 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function CtaBand() {
   return (
-    <section className="clean-cta">
-      <div className="site-container clean-cta-grid">
+    <section className="airy-final-cta" aria-labelledby="final-cta-title">
+      <div className="site-container airy-final-cta-inner">
         <div>
-          <p className="clean-eyebrow">Next step</p>
-          <h2>Start with a conversation.</h2>
+          <p className="airy-eyebrow">Start a conversation</p>
+          <h2 id="final-cta-title">Ready when you are.</h2>
           <p>
-            Ask about account requirements, brokerage services, institutional mandates, or the
-            right starting point for your needs.
+            Learn what you need to prepare, or speak with CGSI about the right next step for your
+            account or mandate.
           </p>
         </div>
-        <div className="clean-cta-actions">
-          <Link href="/contact" className="clean-primary-button">
-            Contact CGSI
+        <div className="airy-final-cta-actions">
+          <Link href="/open-account">
+            Open an account
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
-          <Link href="/open-account" className="clean-secondary-button">
-            Account opening
-          </Link>
+          <Link href="/contact">Contact CGSI</Link>
         </div>
       </div>
     </section>

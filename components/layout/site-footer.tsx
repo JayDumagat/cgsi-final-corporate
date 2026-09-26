@@ -1,83 +1,74 @@
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 
 import { SiteLogo } from "@/components/layout/site-logo";
 import type { PublicSiteSettings } from "@/content/site-settings";
 
 const groups = [
   {
-    heading: "Invest",
+    heading: "Explore",
     links: [
-      ["Who we serve", "/clients"],
-      ["Expertise", "/services"],
-      ["Open an account", "/open-account"],
-      ["Account forms", "/resources"],
-    ],
-  },
-  {
-    heading: "Research",
-    links: [
-      ["Research & insights", "/insights"],
-      ["Investor guides", "/insights/guides"],
-      ["Market notes", "/insights/market-notes"],
-      ["Market announcements", "/market-announcements"],
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
+      ["Clients", "/clients"],
+      ["Services", "/services"],
+      ["Insights", "/insights"],
+      ["Tools & resources", "/tools"],
       ["About CGSI", "/about"],
-      ["Leadership", "/about/team"],
-      ["Governance", "/governance"],
+    ],
+  },
+  {
+    heading: "Client support",
+    links: [
+      ["Open an account", "/open-account"],
+      ["Forms", "/resources"],
+      ["Help center", "/help"],
       ["Contact", "/contact"],
+      ["Disclosures", "/disclosures"],
     ],
   },
 ] as const;
 
 export function SiteFooter({ settings }: { settings: PublicSiteSettings }) {
   return (
-    <footer className="clean-footer">
-      <div className="site-container clean-footer-top">
-        <div className="clean-footer-brand">
+    <footer className="airy-site-footer">
+      <div className="site-container airy-footer-grid">
+        <div className="airy-footer-brand">
           <SiteLogo inverse />
           <p>
-            Philippine equity brokerage for individual, corporate, and institutional clients.
+            Philippine equity brokerage for individuals, families, corporations, and institutions.
           </p>
-          <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer">
-            View PSE participant record
-            <ArrowUpRight size={14} aria-hidden="true" />
-            <span className="sr-only"> opens in a new tab</span>
+          <a href={settings.clientLoginUrl} target="_blank" rel="noreferrer">
+            Client login
+            <ExternalLink size={14} aria-hidden="true" />
           </a>
         </div>
 
-        <div className="clean-footer-links">
-          {groups.map((group) => (
-            <nav aria-label={`${group.heading} links`} key={group.heading}>
-              <p>{group.heading}</p>
-              {group.links.map(([label, href]) => (
-                <Link href={href} key={href}>{label}</Link>
-              ))}
-            </nav>
-          ))}
-        </div>
-      </div>
+        {groups.map((group) => (
+          <nav key={group.heading} aria-label={group.heading}>
+            <p className="airy-footer-heading">{group.heading}</p>
+            {group.links.map(([label, href]) => (
+              <Link href={href} key={href}>
+                {label}
+              </Link>
+            ))}
+          </nav>
+        ))}
 
-      <div className="site-container clean-footer-contact">
-        <div>
-          <strong>{settings.companyName}</strong>
-          <span>{settings.officeAddress}</span>
-        </div>
-        <div>
+        <div className="airy-footer-contact">
+          <p className="airy-footer-heading">Caballes-Go Securities, Inc.</p>
+          <p>{settings.officeAddress}</p>
           <a href={`tel:${settings.telephone.replace(/\s/g, "")}`}>{settings.telephone}</a>
           <a href={`mailto:${settings.email}`}>{settings.email}</a>
+          <a href={settings.pseParticipantUrl} target="_blank" rel="noreferrer">
+            PSE participant record
+            <ExternalLink size={13} aria-hidden="true" />
+          </a>
         </div>
       </div>
 
-      <div className="site-container clean-footer-legal">
+      <div className="site-container airy-footer-bottom">
         <p>
-          Investing in securities involves risk, including possible loss of principal. Website
-          content is general information and is not personalized investment advice or an offer to
-          buy or sell any security.
+          Securities investments involve risk, including possible loss of principal. Website
+          content is general information and is not personalized investment advice.
         </p>
         <div>
           <Link href="/privacy">Privacy</Link>
