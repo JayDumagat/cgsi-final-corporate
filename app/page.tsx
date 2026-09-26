@@ -68,13 +68,14 @@ export default async function Home() {
                 </HeroLine>
                 <HeroLine>
                   <h1 id="home-title">
-                    Philippine equities, with research and a broker you can reach.
+                    Invest with people who know the <span className={styles.serifAccent}>Philippine market.</span>
                   </h1>
                 </HeroLine>
                 <HeroLine>
                   <p className={styles.heroLead}>
-                    A Philippine broker-dealer serving retail and institutional investors with
-                    broker-assisted execution, research publications, and post-trade support.
+                    Whether you are opening your first account or managing a professional mandate,
+                    CGSI brings research, broker-assisted execution, and direct support into one
+                    relationship.
                   </p>
                 </HeroLine>
                 <HeroLine>
@@ -102,8 +103,8 @@ export default async function Home() {
           <Reveal animate direction="none" className={styles.heroMedia}>
             <figure>
               <Image
-                src="/images/editorial/pse-trading-floor.jpg"
-                alt="Philippine securities market trading environment"
+                src="/images/editorial/advisor-clients.jpg"
+                alt="An adviser reviewing financial information with clients"
                 fill
                 priority
                 sizes="(min-width: 1024px) 58vw, 100vw"
@@ -114,9 +115,12 @@ export default async function Home() {
         </div>
 
         <div className={styles.container}>
-          <nav className={styles.intentRail} aria-label="Popular actions">
-            <p>I&apos;m here to</p>
-            <div>
+          <nav className={styles.intentRail} aria-label="Ways to get started">
+            <div className={styles.intentIntro}>
+              <p className={styles.intentTitle}>Start where you are.</p>
+              <span>You do not need the same path as every other investor.</span>
+            </div>
+            <div className={styles.intentLinks}>
               {intentLinks.map((item) => (
                 <Link href={item.href} key={item.href}>
                   <span>
@@ -197,8 +201,8 @@ export default async function Home() {
             </Reveal>
             <Reveal animate delay={0.04}>
               <p>
-                The site should make each stage easier to understand without forcing every client
-                through the same amount of detail.
+                CGSI keeps research, execution, settlement, and follow-through connected so you
+                always know what happens next and who to speak with.
               </p>
             </Reveal>
           </div>
@@ -270,10 +274,10 @@ export default async function Home() {
           <div className={styles.educationGrid}>
             <Reveal animate className={styles.educationCopy}>
               <p className={styles.eyebrow}>New to equities?</p>
-              <h2 id="education-title">Start with the questions, not the jargon.</h2>
+              <h2 id="education-title">You do not need to know everything before you begin.</h2>
               <p>
-                Learn how Philippine equities work, what risk means, how disclosures help, and
-                what happens between deciding to invest and placing an order.
+                Start with plain-language guidance on Philippine equities, risk, disclosures,
+                account basics, and what actually happens when you place an order.
               </p>
               <div className={styles.educationActions}>
                 <Link href="/insights/guides" className={styles.primaryAction}>
