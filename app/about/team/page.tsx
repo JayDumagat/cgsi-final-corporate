@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-import { Reveal } from "@/components/ui/motion-primitives";
+import { PageHero } from "@/components/sections/page-hero";
 import { leadership } from "@/content/site-settings";
 
 export const metadata: Metadata = {
@@ -21,78 +21,61 @@ const functions = [
 export default function TeamPage() {
   return (
     <>
-      <section className="team-masthead">
-        <div className="site-container team-masthead-grid">
-          <div>
-            <p className="interior-kicker">Leadership & team</p>
-            <h1>Clear responsibility across the firm.</h1>
-            <p>
-              CGSI’s board and executive leadership set the standard for client service,
-              market conduct, operational discipline, and long-term stewardship.
-            </p>
-          </div>
-          <div className="team-masthead-image">
-            <Image
-              src="/images/editorial/market-office.jpg"
-              alt="A professional office with financial-market information on screen"
-              fill
-              priority
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Leadership & team"
+        title="Clear responsibility across the firm."
+        description="CGSI’s board and executive leadership set the standard for client service, market conduct, operational discipline, and long-term stewardship."
+        image="/images/editorial/market-office.jpg"
+        imageAlt="A professional office with financial-market information on screen"
+      />
 
-      <section className="board-directory">
-        <div className="site-container board-directory-grid">
-          <div className="board-directory-intro">
-            <p className="section-label">Board & executive leadership</p>
-            <h2>Accountability is named.</h2>
-            <p>
-              Leadership information is presented as a corporate directory. Role details should
-              be read together with current company and regulatory disclosures.
-            </p>
-          </div>
-          <div className="board-list">
-            {leadership.map((person, index) => (
-              <Reveal animate delay={index * 0.03} key={person.name}>
-                <article>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h2>{person.name}</h2>
-                  <p>{person.role}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="team-functions">
+      <section className="clean-list-section">
         <div className="site-container">
-          <div className="team-functions-heading">
-            <p className="section-label section-label-on-dark">How the firm works</p>
-            <h2>Specialist functions connected by client context.</h2>
+          <div className="clean-section-heading">
+            <p className="clean-eyebrow">Board & executive leadership</p>
+            <h2>Accountability is named.</h2>
           </div>
-          <div className="team-functions-grid">
-            {functions.map(([title, text], index) => (
-              <article key={title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
+          <div className="clean-list clean-leadership-list">
+            {leadership.map((person,index)=>(
+              <article key={person.name}>
+                <span>{String(index+1).padStart(2,"0")}</span>
+                <h3>{person.name}</h3>
+                <p>{person.role}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="team-governance-link">
-        <div className="site-container">
+      <section className="clean-process-section">
+        <div className="site-container clean-process-grid">
           <div>
-            <p className="section-label">Governance</p>
+            <p className="clean-eyebrow">How the firm works</p>
+            <h2>Specialist functions, one client context.</h2>
+          </div>
+          <ol>
+            {functions.map(([title,text],index)=>(
+              <li key={title}>
+                <span>{String(index+1).padStart(2,"0")}</span>
+                <div><strong>{title}</strong><p>{text}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="clean-cta">
+        <div className="site-container clean-cta-grid">
+          <div>
+            <p className="clean-eyebrow">Governance</p>
             <h2>See the framework behind leadership responsibility.</h2>
           </div>
-          <Link href="/governance" className="btn btn-secondary">Governance & oversight</Link>
+          <div className="clean-cta-actions">
+            <Link href="/governance" className="clean-primary-button">
+              Governance & oversight
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
     </>
