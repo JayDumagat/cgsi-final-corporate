@@ -83,7 +83,7 @@ test("mega menus, utility bar, mobile navigation, and client actions remain", as
     "Open navigation",
   ])
     assert.ok(html.includes(marker), marker);
-  assert.match(html, /rl-mega-viewport/);
+  assert.match(html, /rl-mega-position/);
   assert.match(html, /rl-utility/);
 });
 test("all rendered internal links have a generated destination and local images exist", async () => {
