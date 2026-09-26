@@ -24,34 +24,34 @@ export function PageHero({
   imagePosition = "center",
 }: PageHeroProps) {
   return (
-    <section className={`clean-page-hero ${compact ? "is-compact" : ""}`}>
+    <section className={`ref-page-hero ${compact ? "is-compact" : ""}`}>
       <div className="site-container">
-        <nav aria-label="Breadcrumb" className="clean-breadcrumb">
+        <nav aria-label="Breadcrumb" className="ref-breadcrumb">
           <Link href="/">Home</Link>
           <span aria-hidden="true">/</span>
           <span aria-current="page">{eyebrow}</span>
         </nav>
 
-        <div className={`clean-page-hero-grid ${image ? "has-image" : ""}`}>
-          <div className="clean-page-hero-copy">
-            <p className="clean-eyebrow">{eyebrow}</p>
+        <div className={`ref-page-hero-grid ${image ? "has-image" : ""}`}>
+          <div className="ref-page-hero-copy">
+            <p className="ref-kicker">{eyebrow}</p>
             <h1>{title}</h1>
             <p>{description}</p>
-            {children ? <div className="clean-page-hero-actions">{children}</div> : null}
+            {children ? <div className="ref-page-hero-actions">{children}</div> : null}
           </div>
 
           {image ? (
-            <div className="clean-page-hero-image">
+            <figure className="ref-page-hero-image">
               <Image
                 src={image}
                 alt={imageAlt}
                 fill
                 priority
-                sizes="(min-width: 900px) 42vw, 100vw"
+                sizes="(min-width: 960px) 44vw, 100vw"
                 className="object-cover"
                 style={{ objectPosition: imagePosition }}
               />
-            </div>
+            </figure>
           ) : null}
         </div>
       </div>
